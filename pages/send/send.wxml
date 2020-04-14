@@ -1,0 +1,7 @@
+<!--pages/send/send.wxml-->
+<view>
+<button bindtap="check">扫一扫</button>
+<view>编号,类型,价格</view>
+<view>{{show}}</view>
+<view>{{status}}</view>
+</view>
