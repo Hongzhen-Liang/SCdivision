@@ -33,7 +33,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    show: "",
+    show: [],
     status:""
   },
 
@@ -96,13 +96,19 @@ Page({
   //扫一扫绑定的函数
   check: function () {
     var that = this;
-    var show;
+    var message;
     //扫图片的组件
     wx.scanCode({
       success: (res) => {
-        this.show = res.result;
+        message = res.result.split(",");
+        var newData = [{
+          code:message[0],
+          type:message[1],
+          price:message[2]
+        }]
+        this.data.show = newData.concat(this.data.show);
         that.setData({
-          show: this.show
+          show: this.data.show
         })
         wx.showToast({
           title: '上传成功',
@@ -114,7 +120,7 @@ Page({
       fail: (res) => {
         wx.showToast({
           title: '失败',
-          icon: 'success',
+          icon: 'none',
           duration: 2000
         })
       },
