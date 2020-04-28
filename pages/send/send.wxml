@@ -15,9 +15,9 @@
       <view class="td">{{item.price}}</view>
     </view>
     <view class="tr" wx:else>
-      <view class="td">{{item.code}}</view>
-      <view class="td">{{item.text}}</view>
+      <view class="td big">{{item.code}}</view>
       <view class="td">{{item.type}}</view>
+      <view class="td">{{item.price}}</view>
     </view>
   </block>
 </scorll-view>
