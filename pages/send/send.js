@@ -96,26 +96,56 @@ Page({
   //扫一扫绑定的函数
   check: function () {
     var that = this;
-    var message;
+    var message=[];
     //扫图片的组件
     wx.scanCode({
       success: (res) => {
         message = res.result.split(",");
-        var newData = [{
-          code:message[0],
-          type:message[1],
-          price:message[2]
-        }]
-        this.data.show = newData.concat(this.data.show);
-        that.setData({
-          show: this.data.show
-        })
-        wx.showToast({
-          title: '上传成功',
-          icon: 'success',
-          duration: 2000
-        })
-        upload(this.show,that)//上传到本地服务器
+        if(message.length<=4)
+        {
+          var newData = [{
+            code: message[0],
+            type: message[1],
+            price: message[2]
+          }];
+          var that = this;
+          wx.showModal({
+            title: '确认货物信息',
+            content: '编号: ' + message[0] + '\r\n类型: ' + message[1] + '\r\n价格: ' + message[2],//模拟器中未换行，真机实验换行
+            success(res)
+            {
+              if(res.confirm)
+              {
+                that.data.show = newData.concat(that.data.show);
+                that.setData({
+                  show: that.data.show
+                });
+                upload(that.show, that)//上传到本地服务器
+                wx.showToast({
+                  title: '已录入',
+                  icon:'success',
+                  duration:2000
+                })
+              }
+              else if(res.cancel)
+              {
+                wx.showToast({
+                  title: '未录入',
+                  icon:'none',
+                  duration:2000
+                })
+              }
+            }
+          })
+        }
+        else
+        {
+          wx.showToast({
+            title: '数据格式有误',
+            icon:'none',
+            duration:2000
+          })
+        }
       },
       fail: (res) => {
         wx.showToast({
