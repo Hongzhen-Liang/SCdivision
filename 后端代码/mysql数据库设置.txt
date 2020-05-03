@@ -10,16 +10,21 @@ MySql
 id varchar(30) primary key not null,
 type varchar(5),
 price float,
-submission_date DATE
+submission_date DATE,
+status int default 1,
+agree_modify default 0
 );
+
+(添加新的一列 alter table depot add column status int default 1;)
 
 3.赋予权限给scnu用户
 grant all privileges on depot.* to scnu@'loacalhost' identified by 'scd';
 flush privileges;
 
 
-+-----------+------+-------+-----------------+
-| id        | type | price | submission_date |
-+-----------+------+-------+-----------------+
-| AA3002058 | C    | 203.5 | 2020-04-28      |
-+-----------+------+-------+-----------------+
+
++-----------+------+-------+-----------------+--------+--------------+
+| id        | type | price | submission_date | status | agree_modify |
++-----------+------+-------+-----------------+--------+--------------+
+| AA3002020 | C    |   203 | 2020-05-03      |      1 |            0 |
++-----------+------+-------+-----------------+--------+--------------+
