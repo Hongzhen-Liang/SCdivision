@@ -1,0 +1,25 @@
+MySql
+
+在root权限下做
+
+1.创建用户:create user scnu identified by 'scd';
+
+2.创建数据库:create DATABASE scd;
+
+3.create table depot(
+id varchar(30) primary key not null,
+type varchar(5),
+price float,
+submission_date DATE
+);
+
+3.赋予权限给scnu用户
+grant all privileges on depot.* to scnu@'loacalhost' identified by 'scd';
+flush privileges;
+
+
++-----------+------+-------+-----------------+
+| id        | type | price | submission_date |
++-----------+------+-------+-----------------+
+| AA3002058 | C    | 203.5 | 2020-04-28      |
++-----------+------+-------+-----------------+
