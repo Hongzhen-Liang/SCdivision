@@ -21,7 +21,8 @@ agree_modify default 0
 grant all privileges on depot.* to scnu@'loacalhost' identified by 'scd';
 flush privileges;
 
-
+4.手动开启agree_modify:
+update depot set agree_modify=1;
 
 +-----------+------+-------+-----------------+--------+--------------+
 | id        | type | price | submission_date | status | agree_modify |
