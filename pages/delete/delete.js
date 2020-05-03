@@ -1,6 +1,6 @@
 function upload(message,that) {
   wx.request({
-    url: 'http://127.0.0.1:80/send',
+    url: 'http://127.0.0.1:80/delete',
     data: {
       upload:JSON.stringify(message)
     },
@@ -120,13 +120,9 @@ Page({
                 that.setData({
                   show: that.data.show
                 });
-                var data_length = that.data.show.length
-                // var message = that.data.show[data_length-1]
-                var send_message = message[0]+','+message[1]+','+message[2]
-                console.log(send_message)
-                upload(send_message, that)//上传到本地服务器
+                upload(that.show, that)//上传到本地服务器
                 wx.showToast({
-                  title: '已录入',
+                  title: '已录出',
                   icon:'success',
                   duration:2000
                 })
@@ -134,7 +130,7 @@ Page({
               else if(res.cancel)
               {
                 wx.showToast({
-                  title: '未录入',
+                  title: '未录出',
                   icon:'none',
                   duration:2000
                 })

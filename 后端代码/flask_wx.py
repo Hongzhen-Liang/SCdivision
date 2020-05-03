@@ -12,12 +12,12 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     return render_template('index.html')
-@app.route('/score',methods=['POST'])
-def score():
+@app.route('/send',methods=['POST'])
+def send():
     upload = str(json.loads(request.values.get("upload")))
     upload_list = upload.split(',')
     print(upload_list)
-    conn = pymysql.connect(host='127.0.0.1', user='south_china_division',password='scnu',database='south_china_division',charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', user='scnu',password='scd',database='scd',charset='utf8')
     # 得到一个可以执行SQL语句的光标对象
     cursor = conn.cursor()
     # 定义要执行的SQL语句
@@ -45,6 +45,6 @@ def score():
         # print(res)
         res='数据提交失败'
         return json.dumps(res)
-    # return json.dumps(upload)
+    return json.dumps(upload)
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True,port=80)

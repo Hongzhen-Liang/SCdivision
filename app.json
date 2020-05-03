@@ -1,9 +1,10 @@
 {
   "pages": [
+    
     "pages/send/send",
     "pages/logs/logs",
+    "pages/delete/delete",
     "pages/index/index"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -15,25 +16,26 @@
   "sitemapLocation": "sitemap.json",
   "tabBar": {
     "selectedColor": "#09BB07",
-    "list": [{
-      "pagePath": "pages/send/send",
-      "text": "扫码入库",
-      "iconPath":"images/icons/QRscan.png",
-      "selectedIconPath":"images/icons/SQscanselected.png"
-    },
-    {
-      "pagePath": "pages/logs/logs",
-      "text": "日志",
-      "iconPath":"images/icons/dairy.png",
-      "selectedIconPath":"images/icons/dairyselected.png"
-    },
-    {
-      "pagePath": "pages/index/index",
-      "text": "用户",
-      "iconPath":"images/icons/user.png",
-      "selectedIconPath":"images/icons/userselected.png"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/send/send",
+        "text": "扫码入库",
+        "iconPath": "images/icons/QRscan.png",
+        "selectedIconPath": "images/icons/SQscanselected.png"
+      },
+      {
+        "pagePath": "pages/delete/delete",
+        "text": "扫码出库",
+        "iconPath": "images/icons/QRscan.png",
+        "selectedIconPath": "images/icons/SQscanselected.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "用户",
+        "iconPath": "images/icons/user.png",
+        "selectedIconPath": "images/icons/userselected.png"
+      }
+    ]
   },
-
-  "usingComponents":{}
+  "usingComponents": {}
 }
