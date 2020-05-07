@@ -1,10 +1,9 @@
 {
   "pages": [
-    
+    "pages/index/index",
     "pages/send/send",
     "pages/logs/logs",
-    "pages/delete/delete",
-    "pages/index/index"
+    "pages/delete/delete"
   ],
   "window": {
     "backgroundTextStyle": "light",
