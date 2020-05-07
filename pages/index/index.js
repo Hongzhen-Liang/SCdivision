@@ -4,10 +4,13 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
+    motto: 'This is Position Authority explanation',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    realName:'default',
+    imageUri:'../../images/touxiang/default.png',
+    explanation: { 'depotManager': '仅允许出库入库', 'front':'仅改价格和判定货物能否出货','admin':'无约束','driver':'仅更改货物位置信息'}
   },
   //事件处理函数
   bindViewTap: function() {
@@ -42,6 +45,39 @@ Page({
         }
       })
     }
+    var that = this;
+    wx.request({
+      url: 'http:/127.0.0.1/user',//这部分需要完善服务器操作
+      method:'GET',
+      data:{
+        wxid:'',//匹配码
+        position:'position',
+        realName:'',
+      },
+      success(res)
+      {
+        var pos=res.data.position;
+        var name =res.data.realName;
+        that.setData(
+        {
+          imageUri:'../../images/touxiang/'+this.pos+'.png',
+          motto:'权限说明：'+that.data.explanation[this.pos],
+          realName:this.name
+        })
+      },
+      //测试
+      fail(res)
+      {
+        var pos = 'admin';
+        var name ='华南师团';
+        that.setData(
+        {
+          imageUri: '../../images/touxiang/' + pos + '.png',
+          motto: '权限说明：' + that.data.explanation[pos]+'，此为服务器反馈失败测试',
+          realName: name
+        })
+      }
+    })
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -51,4 +87,5 @@ Page({
       hasUserInfo: true
     })
   }
+
 })
