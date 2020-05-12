@@ -1,6 +1,6 @@
 function upload(message,that) {
   wx.request({
-    url: 'http://127.0.0.1:80/send',
+    url: 'http://120.78.209.24/send',
     data: {
       upload:JSON.stringify(message)
     },
