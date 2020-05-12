@@ -17,7 +17,6 @@ Page({
       'admin': '无约束',
       'driver': '仅更改货物位置信息'
     },
-    openId: '',
   },
   //事件处理函数
   bindViewTap: function() {
@@ -27,8 +26,6 @@ Page({
   },
   onLoad: function() {
     var that = this;
-
-
     wx.getSetting({
       success: function(res) {
         wx.showToast({
@@ -57,13 +54,17 @@ Page({
                     },
                     success: res => {
                       // 获取到用户的 openid
-                      that.setData({
-                        openId: res.data.openid,
-                      })
-                      // console.log("用户的openid:" + that.data.openId);
+                      try {
+                        wx.setStorageSync('userId', res.data.openid)
+                      } catch (e) {
+                        wx.showModal({
+                          title:'发生了意外的错误'
+                        })
+                      }
+                      console.log("用户的openid:" + wx.getStorageSync('userId'));
                     }
                   });
-                  console.log("用户的openid:" + that.data.openId);
+                  console.log("用户的openid:" + wx.getStorageSync('userId'));
                   wx.request({
                     url: 'http:/127.0.0.1/wx_flask.py', //这部分需要完善服务器操作
                     method: 'GET',
@@ -111,7 +112,6 @@ Page({
     });
   },
   bindGetUserInfo: function(e) {
-    console.log(this.data.userInfo.nickName);
     if (e.detail.userInfo) {
       //用户按了允许授权按钮
       var that = this;
