@@ -16,7 +16,8 @@ Page({
       'front': '仅改价格和判定货物能否出货',
       'admin': '无约束',
       'driver': '仅更改货物位置信息'
-    }
+    },
+    openId: '',
   },
   //事件处理函数
   bindViewTap: function() {
@@ -41,13 +42,30 @@ Page({
               wx.login({
                 success: res => {
                   // 获取到用户的 code 之后：res.code
-                  var code =  res.code;
-
+                  var code = res.code;
+                  // 直接使用微信的提供的接口直接获取 openid ，方法如下：
+                  wx.request({
+                    // 自行补上自己的 APPID 和 SECRET
+                    url: 'https://api.weixin.qq.com/sns/jscode2session',
+                    data: {
+                      appid: 'wxec04bdd5b687cb31',
+                      secret: 'eed9f0baa83797415f4cc343dbc52b3c',
+                      js_code: res.code,
+                      grant_type: 'authorization_code'
+                    },
+                    success: res => {
+                      // 获取到用户的 openid
+                      that.setData({
+                        openId: res.data.openid,
+                      })
+                      console.log("用户的openid:" + that.data.openId);
+                    }
+                  });
                   wx.request({
                     url: 'http:/127.0.0.1/wx_flask.py', //这部分需要完善服务器操作
                     method: 'GET',
                     data: {
-                      wxid: code, //匹配码
+                      wxid: that.data.openId, //匹配码
                       position: 'position',
                       realName: '',
                     },
@@ -71,16 +89,6 @@ Page({
                       })
                     }
                   })
-                  // 可以传给后台，再经过解析获取用户的 openid
-                  // 或者可以直接使用微信的提供的接口直接获取 openid ，方法如下：
-                  // wx.request({
-                  //     // 自行补上自己的 APPID 和 SECRET
-                  //     url: 'https://api.weixin.qq.com/sns/jscode2session?appid=自己的APPID&secret=自己的SECRET&js_code=' + res.code + '&grant_type=authorization_code',
-                  //     success: res => {
-                  //         // 获取到用户的 openid
-                  //         console.log("用户的openid:" + res.data.openid);
-                  //     }
-                  // });
                 }
               });
             }
@@ -89,7 +97,7 @@ Page({
           // 用户没有授权
           // 改变 isHide 的值，显示授权页面
           wx.hideTabBar({
-            
+
           });
           that.setData({
             isHide: true
@@ -111,7 +119,7 @@ Page({
         isHide: false
       });
       wx.showTabBar({
-        
+
       })
       //跳转至send
       wx.reLaunch({
