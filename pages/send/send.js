@@ -134,11 +134,11 @@ Page({
                 var send_message = message[0]+','+message[1]+','+message[2]
                 console.log(send_message)
                 upload(send_message, that)//上传到本地服务器
-                // wx.showToast({
-                //   title: '已录入',
-                //   icon:'success',
-                //   duration:2000
-                // })
+                wx.showToast({
+                  title: '已录入等待服务器响应',
+                  icon:'success',
+                  duration:2000
+                })
               }
               else if(res.cancel)
               {
