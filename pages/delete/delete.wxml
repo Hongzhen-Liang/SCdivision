@@ -1,6 +1,6 @@
 <!--pages/send/send.wxml-->
 <view>
-  <button bindtap="check">扫一扫</button>
+  <button bindtap="check" style="margin-bottom:3%">扫码出库</button>
 </view>
 <scorll-view class="table">
   <view class="tr bg-w">
