@@ -17,6 +17,7 @@
   <view wx:else>请升级微信版本</view>
 </view>
 
+
 <view wx:else>
   <view class="container">
     <view class="userinfo">

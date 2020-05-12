@@ -27,6 +27,8 @@ Page({
   },
   onLoad: function() {
     var that = this;
+
+
     wx.getSetting({
       success: function(res) {
         wx.showToast({
@@ -58,9 +60,10 @@ Page({
                       that.setData({
                         openId: res.data.openid,
                       })
-                      console.log("用户的openid:" + that.data.openId);
+                      // console.log("用户的openid:" + that.data.openId);
                     }
                   });
+                  console.log("用户的openid:" + that.data.openId);
                   wx.request({
                     url: 'http:/127.0.0.1/wx_flask.py', //这部分需要完善服务器操作
                     method: 'GET',
@@ -108,6 +111,7 @@ Page({
     });
   },
   bindGetUserInfo: function(e) {
+    console.log(this.data.userInfo.nickName);
     if (e.detail.userInfo) {
       //用户按了允许授权按钮
       var that = this;
