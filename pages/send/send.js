@@ -110,7 +110,7 @@ Page({
     wx.scanCode({
       success: (res) => {
         message = res.result.split(",");
-        if(message.length<=4)
+        if(message.length==3)
         {
           var newData = [{
             code: message[0],
@@ -133,19 +133,19 @@ Page({
                 // var message = that.data.show[data_length-1]
                 var send_message = message[0]+','+message[1]+','+message[2]
                 console.log(send_message)
-                upload(send_message, that)//上传到本地服务器
                 wx.showToast({
                   title: '已录入等待服务器响应',
                   icon:'success',
-                  duration:2000
+                  duration:500
                 })
+                upload(send_message, that)//上传到本地服务器
               }
               else if(res.cancel)
               {
                 wx.showToast({
-                  title: '未录入',
+                  title: '取消录入',
                   icon:'none',
-                  duration:2000
+                  duration:500
                 })
               }
             }
