@@ -1,8 +1,9 @@
 function upload(message,that) {
+  var send_message = message[0]+','+message[1]+','+message[2]+','+app.globalData.pos
   wx.request({
     url: 'http://120.78.209.24/delete',
     data: {
-      upload:JSON.stringify(message)
+      upload:JSON.stringify(send_message)
     },
     method: "POST",
     header: {
@@ -10,14 +11,17 @@ function upload(message,that) {
       'chartset': 'utf-8'
     },
     success: function (res) {
-      console.log(res.data);//将后端状态传给前端并赋值status
-      if(res.data=="出库成功"){
+      if(res.data=='出库成功'){
+        var newData = [{
+          code: message[0],
+          type: message[1],
+          price: message[2]
+        }];
+        that.data.show = newData.concat(that.data.show);
         that.setData({
-          status: res.data,
           show: that.data.show
         })
       }
-
       wx.showToast({
         title: res.data,//这里打印出登录成功
         icon: 'none',
@@ -129,20 +133,13 @@ Page({
             {
               if(res.confirm)
               {
-                that.data.show = newData.concat(that.data.show);
-                // that.setData({
-                //   show: that.data.show
-                // });
                 var data_length = that.data.show.length
-                // var message = that.data.show[data_length-1]
-                var send_message = message[0]+','+message[1]+','+message[2]+','+app.globalData.pos
-                console.log(send_message)
                 wx.showToast({
                   title: '已录入等待服务器响应',
                   icon:'success',
                   duration:2000
                 })
-                upload(send_message, that)//上传到本地服务器
+                upload(message, that)//上传到本地服务器
               }
               else if(res.cancel)
               {
