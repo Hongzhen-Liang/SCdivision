@@ -29,3 +29,26 @@ update depot set agree_modify=1;
 +-----------+------+-------+-----------------+--------+--------------+
 | AA3002020 | C    |   203 | 2020-05-03      |      1 |            0 |
 +-----------+------+-------+-----------------+--------+--------------+
+
+
+
+用户数据表
+
+1.use scd
+
+2.create table users(
+    userId varchar(50) primary key not null,
+    realName varchar(20),
+    position varchar(10) default 'default'
+);
+
+!!!注意初始化的属性是latin1,无法输入中文,要改成utf8
+show create table users;
+alter table users  modify realName  varchar(20) character set utf8;
+
+3.insert into users(userId,realName,position) values('oBtgM5Ji7828jqbyQYM3KhMRJOeE','胡翔','admin'); 
+# 'oBtgM5O3YiWv5qT_QTJ__nAFXdhs','梁鸿振','admin'
+insert into users(userId,realName,position) values('oBtgM5O3YiWv5qT_QTJ__nAFXdhs','梁鸿振','admin');
+
+
+

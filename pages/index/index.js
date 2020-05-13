@@ -79,13 +79,15 @@ Page({
                     },
                     success(res) {
                       console.log(res.data);
-                      // var pos = res.data.position;
-                      // var name = res.data.realName;
-                      // that.setData({
-                      //   imageUri: '../../images/touxiang/' + this.pos + '.png',
-                      //   motto: '权限说明：' + that.data.explanation[this.pos],
-                      //   realName: this.name
-                      // })
+                      var mess=res.data.split(',');
+                      var name = mess[0]
+                      var pos = mess[1]
+                      console.log(pos)
+                      that.setData({
+                        imageUri: '../../images/touxiang/' + pos + '.png',
+                        motto: '权限说明：' + that.data.explanation[pos],
+                        realName: name
+                      })
                     },
                     //测试
                     fail(res) {

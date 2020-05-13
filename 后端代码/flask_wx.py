@@ -1,9 +1,18 @@
 
-# coding=utf8
+# -*- coding: utf-8 -*-
 import sys
 from flask import Flask,render_template,request,json
 import pymysql
 import time
+
+
+user='scnu'
+password='scd'
+database='scd'
+charset='utf8'
+
+
+
 
 
 
@@ -18,7 +27,20 @@ def hello_world():
 def index():
     upload = str(json.loads(request.values.get("wxid")))
     print(upload)
-    return json.dumps(upload)
+    conn = pymysql.connect(host='127.0.0.1', user=user,password=password,database=database,charset=charset)
+    cursor = conn.cursor()
+    
+    sql="select realName,position from users where userId=%s"
+    res=cursor.execute(sql,upload)
+    message = cursor.fetchone()
+    print(message)
+    # print(message[0])
+    # print(message[1])
+    res=message[0]+','+message[1]
+    cursor.close()
+    conn.close()
+
+    return json.dumps(res)
 
 
 
@@ -31,7 +53,7 @@ def send():
         return json.dumps('错误二维码')
 
     # print(upload_list)
-    conn = pymysql.connect(host='127.0.0.1', user='scnu',password='scd',database='scd',charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', user=user,password=password,database=database,charset=charset)
     # 得到一个可以执行SQL语句的光标对象
     cursor = conn.cursor()
     # 定义要执行的SQL语句
@@ -67,7 +89,7 @@ def delete():
     upload = str(json.loads(request.values.get("upload")))
     upload_list = upload.split(',')
     print(upload_list)
-    conn = pymysql.connect(host='127.0.0.1', user='scnu',password='scd',database='scd',charset='utf8')
+    conn = pymysql.connect(host='127.0.0.1', user=user,password=password,database=database,charset=charset)
     # 得到一个可以执行SQL语句的光标对象
     cursor = conn.cursor()
     # 先查询商品在不在库中
