@@ -34,6 +34,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    pos: 'default',
+    name: '华南师团'
   }
 })

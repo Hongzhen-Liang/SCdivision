@@ -78,11 +78,14 @@ Page({
                       'chartset': 'utf-8'
                     },
                     success(res) {
-                      console.log(res.data);
+                      // console.log(res.data);
                       var mess=res.data.split(',');
                       var name = mess[0]
                       var pos = mess[1]
-                      console.log(pos)
+                      // console.log(pos)
+                      // 全局变量修改
+                      app.globalData.pos = pos
+                      app.globalData.name = name
                       that.setData({
                         imageUri: '../../images/touxiang/' + pos + '.png',
                         motto: '权限说明：' + that.data.explanation[pos],
@@ -91,7 +94,7 @@ Page({
                     },
                     //测试
                     fail(res) {
-                      var pos = 'admin';
+                      var pos = 'default';
                       var name = '华南师团';
                       that.setData({
                         imageUri: '../../images/touxiang/' + pos + '.png',
