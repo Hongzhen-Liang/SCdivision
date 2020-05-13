@@ -61,26 +61,31 @@ Page({
                           title:'发生了意外的错误'
                         })
                       }
-                      console.log("用户的openid:" + wx.getStorageSync('userId'));
+                      // console.log("用户的openid:" + wx.getStorageSync('userId'));
                     }
                   });
-                  console.log("用户的openid:" + wx.getStorageSync('userId'));
+                  // console.log("用户的openid:" + wx.getStorageSync('userId'));
                   wx.request({
-                    url: 'http:/127.0.0.1/wx_flask.py', //这部分需要完善服务器操作
-                    method: 'GET',
+                    url: 'http://120.78.209.24/index', //这部分需要完善服务器操作
                     data: {
-                      wxid: that.data.openId, //匹配码
-                      position: 'position',
-                      realName: '',
+                      wxid: JSON.stringify(wx.getStorageSync('userId').toString()), //匹配码
+                      position: JSON.stringify('position'),
+                      realName: JSON.stringify(''),
+                    },
+                    method: 'POST',
+                    header: {
+                      'content-type': 'application/x-www-form-urlencoded',
+                      'chartset': 'utf-8'
                     },
                     success(res) {
-                      var pos = res.data.position;
-                      var name = res.data.realName;
-                      that.setData({
-                        imageUri: '../../images/touxiang/' + this.pos + '.png',
-                        motto: '权限说明：' + that.data.explanation[this.pos],
-                        realName: this.name
-                      })
+                      console.log(res.data);
+                      // var pos = res.data.position;
+                      // var name = res.data.realName;
+                      // that.setData({
+                      //   imageUri: '../../images/touxiang/' + this.pos + '.png',
+                      //   motto: '权限说明：' + that.data.explanation[this.pos],
+                      //   realName: this.name
+                      // })
                     },
                     //测试
                     fail(res) {

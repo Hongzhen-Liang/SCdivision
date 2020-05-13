@@ -13,11 +13,23 @@ app = Flask(__name__)
 def hello_world():
     return "It''s working"
 
+
+@app.route('/index',methods=['POST'])
+def index():
+    upload = str(json.loads(request.values.get("wxid")))
+    print(upload)
+    return json.dumps(upload)
+
+
+
 # 出库函数
 @app.route('/send',methods=['POST'])
 def send():
     upload = str(json.loads(request.values.get("upload")))
     upload_list = upload.split(',')
+    if len(upload_list)!=3:
+        return json.dumps('错误二维码')
+
     # print(upload_list)
     conn = pymysql.connect(host='127.0.0.1', user='scnu',password='scd',database='scd',charset='utf8')
     # 得到一个可以执行SQL语句的光标对象
@@ -69,7 +81,6 @@ def delete():
         return json.dumps('商品已出库')
     elif message[0][5]==0:
         return json.dumps('未允许出库')
-
 
     # 将status置为0表示出库
     # 定义要执行的SQL语句
