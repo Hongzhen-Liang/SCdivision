@@ -19,7 +19,7 @@
 }
 
 .usermotto {
-  margin-top: 140px;
+  margin-top: 160px;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -53,4 +53,13 @@
     border-radius: 80rpx;
     margin: 70rpx 50rpx;
     font-size: 35rpx;
+}
+.button{
+  font-size:10px; 
+}
+.buttonBlock{
+  position: fixed;
+  display: felx;
+  margin-top: 95px;
+  flex-direction: row;
 }

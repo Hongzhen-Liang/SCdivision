@@ -15,14 +15,16 @@ Page({
       'depotManager': '仅允许出库入库',
       'front': '仅改价格和判定货物能否出货',
       'admin': '无约束',
-      'driver': '仅更改货物位置信息'
+      'driver': '仅更改货物位置信息',
+      'default':'无权限！'
     },
+    isActuallyAdmin:app.globalData.isActuallyAdmin,//每次刷新都校验全局数据
   },
   //事件处理函数
   bindViewTap: function() {
-    // wx.navigateTo({
-    //   url: '../logs/logs'
-    // })
+    wx.navigateTo({
+      url: '../logs/logs'
+    })
   },
   onLoad: function() {
     var that = this;
@@ -61,7 +63,7 @@ Page({
                           title:'发生了意外的错误'
                         })
                       }
-                      console.log("用户的openid:" + wx.getStorageSync('userId'));
+                      // console.log("用户的openid:" + wx.getStorageSync('userId'));
                     }
                   });
                   // console.log("用户的openid:" + wx.getStorageSync('userId'));
@@ -86,6 +88,14 @@ Page({
                       // 全局变量修改
                       app.globalData.pos = pos
                       app.globalData.name = name
+                      //只要登陆一次admin就有更改自身权限的能力
+                      if(pos=='admin')
+                      {
+                        app.globalData.isActuallyAdmin=true;
+                        that.setData({
+                          isActuallyAdmin:true,
+                        })
+                      }
                       that.setData({
                         imageUri: '../../images/touxiang/' + pos + '.png',
                         motto: '权限说明：' + that.data.explanation[pos],
@@ -154,6 +164,38 @@ Page({
         }
       });
     }
-  }
-
+  },
+  //更改权限（职位）
+  changePosition:function(e)
+  {
+    //获取更改的职位： e.currentTarget.id
+    console.log(e.currentTarget.id);
+    var cpos = e.currentTarget.id;
+    var that = this;
+    //以下是更改权限的部分
+    wx.request({
+      url: 'http://120.78.209.24/index',
+      method : "PSOT",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8'
+      },
+      data:{
+        wxId: wx.getStorageSync('userId').toString(),
+        changeToPosition: cpos
+      },
+      success(res){
+        app.globalData.pos = cpos;
+        that.setData({
+          imageUri: '../../images/touxiang/' + cpos + '.png',
+          motto: '权限说明：' + this.data.explanation[cpos],
+        })
+      }
+    })
+    //后端测试时请删掉！！！
+    this.setData({
+      imageUri: '../../images/touxiang/' + cpos + '.png',
+      motto: '权限说明：' + this.data.explanation[cpos],
+    })
+  },
 })

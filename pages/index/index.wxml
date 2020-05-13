@@ -26,6 +26,13 @@
         <text class="userinfo-nickname">{{realName}}</text>
       </block>
     </view>
+    <view class="buttonBlock" wx:if="{{isActuallyAdmin}}">
+      <button bindtap="changePosition" id="admin" class="button">admin</button>
+      <button bindtap="changePosition" id="depotManager"class="button">depotManager</button>
+      <button bindtap="changePosition" id="front" class="button">front</button>
+      <button bindtap="changePosition" id="driver" class="button">driver</button>
+      <button bindtap="changePosition" id="default" class="button">default</button>
+    </view>
     <view class="usermotto">
       <text class="user-motto">{{motto}}</text>
     </view>

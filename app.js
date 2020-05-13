@@ -36,6 +36,8 @@ App({
   globalData: {
     userInfo: null,
     pos: 'default',
-    name: '华南师团'
+    name: '华南师团',
+    isActuallyAdmin:false,
+    flag:false,
   }
 })
