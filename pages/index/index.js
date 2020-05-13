@@ -20,9 +20,9 @@ Page({
   },
   //事件处理函数
   bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    // wx.navigateTo({
+    //   url: '../logs/logs'
+    // })
   },
   onLoad: function() {
     var that = this;
@@ -61,7 +61,7 @@ Page({
                           title:'发生了意外的错误'
                         })
                       }
-                      // console.log("用户的openid:" + wx.getStorageSync('userId'));
+                      console.log("用户的openid:" + wx.getStorageSync('userId'));
                     }
                   });
                   // console.log("用户的openid:" + wx.getStorageSync('userId'));
