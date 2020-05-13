@@ -1,6 +1,10 @@
 /* pages/send/send.wxss */
 .table {
  border: 0px solid darkgray;
+ top: 5rem;
+ position: absolute;
+ width: 100%;
+ z-index: -1;
 }
 .tr {
  display: flex;
