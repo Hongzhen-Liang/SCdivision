@@ -63,7 +63,7 @@ Page({
                           title:'发生了意外的错误'
                         })
                       }
-                      // console.log("用户的openid:" + wx.getStorageSync('userId'));
+                      console.log("用户的openid:" + wx.getStorageSync('userId'));
                     }
                   });
                   // console.log("用户的openid:" + wx.getStorageSync('userId'));
@@ -172,30 +172,32 @@ Page({
     console.log(e.currentTarget.id);
     var cpos = e.currentTarget.id;
     var that = this;
-    //以下是更改权限的部分
-    wx.request({
-      url: 'http://120.78.209.24/index',
-      method : "PSOT",
-      header: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'chartset': 'utf-8'
-      },
-      data:{
-        wxId: wx.getStorageSync('userId').toString(),
-        changeToPosition: cpos
-      },
-      success(res){
-        app.globalData.pos = cpos;
-        that.setData({
-          imageUri: '../../images/touxiang/' + cpos + '.png',
-          motto: '权限说明：' + this.data.explanation[cpos],
-        })
-      }
-    })
+    // //以下是更改权限的部分,暂时没必要更改服务器上的权限，否则到时候改回来很烦
+    // wx.request({
+    //   url: 'http://120.78.209.24/index',
+    //   method : "PSOT",
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded',
+    //     'chartset': 'utf-8'
+    //   },
+    //   data:{
+    //     wxId: wx.getStorageSync('userId').toString(),
+    //     changeToPosition: cpos
+    //   },
+    //   success(res){
+    //     app.globalData.pos = cpos;
+    //     that.setData({
+    //       imageUri: '../../images/touxiang/' + cpos + '.png',
+    //       motto: '权限说明：' + this.data.explanation[cpos],
+    //     })
+    //   }
+    // })
     //后端测试时请删掉！！！
     this.setData({
       imageUri: '../../images/touxiang/' + cpos + '.png',
       motto: '权限说明：' + this.data.explanation[cpos],
     })
+    // 更改全局变量，告诉服务器(driver、admin)身份是什么
+    app.globalData.pos=cpos
   },
 })

@@ -1,4 +1,5 @@
 /**index.wxss**/
+
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -19,7 +20,7 @@
 }
 
 .usermotto {
-  margin-top: 160px;
+  margin-top: 50px;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -52,14 +53,17 @@
 .bottom {
     border-radius: 80rpx;
     margin: 70rpx 50rpx;
-    font-size: 35rpx;
+    font-size: 100rpx;
 }
 .button{
   font-size:10px; 
 }
-.buttonBlock{
+
+/* 没必要特设样式，否则会覆盖姓名文字 */
+/* .buttonBlock{
   position: fixed;
   display: felx;
   margin-top: 95px;
   flex-direction: row;
-}
+} */
+
