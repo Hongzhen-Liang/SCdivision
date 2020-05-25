@@ -1,5 +1,5 @@
 function upload(message,that) {
-  var send_message = message[0]+','+message[1]+','+message[2]+','+app.globalData.pos
+  var send_message = message[0]+','+message[1]+','+message[2]+','+app.globalData.pos+','+app.globalData.longitude+','+app.globalData.latitude
   wx.request({
     url: 'http://120.78.209.24/delete',
     data: {

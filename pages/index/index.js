@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+
     isHide: false,
     motto: 'This is Position Authority explanation',
     userInfo: {},
@@ -28,6 +29,23 @@ Page({
   },
   onLoad: function() {
     var that = this;
+
+    wx.getLocation({  //获取经纬度坐标
+      type: 'gcj02',
+      success(res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        that.setData({
+          latitude:res.latitude,
+          longitude:res.longitude
+        })
+        app.globalData.latitude=latitude //全局变量
+        app.globalData.longitude=longitude
+        // console.log(latitude,longitude)
+      }
+    })
+    
+
     wx.getSetting({
       success: function(res) {
         wx.showToast({

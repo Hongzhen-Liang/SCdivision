@@ -39,5 +39,7 @@ App({
     name: '华南师团',
     isActuallyAdmin:false,
     flag:false,
+    latitude:0,
+    longitude:0
   }
 })

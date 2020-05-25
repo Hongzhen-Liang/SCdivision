@@ -6,13 +6,16 @@ MySql
 
 2.创建数据库:create DATABASE scd;
 
+清空表:truncate table;
+
 3.create table depot(
 id varchar(30) primary key not null,
 type varchar(5),
 price float,
 submission_date DATE,
 status int default 1,
-agree_modify default 0
+agree_modify default 0,
+lng_lat varchar(30) default "0,0"
 );
 
 (添加新的一列 alter table depot add column status int default 1;)
@@ -24,11 +27,11 @@ flush privileges;
 4.手动开启agree_modify:
 update depot set agree_modify=1;
 
-+-----------+------+-------+-----------------+--------+--------------+
-| id        | type | price | submission_date | status | agree_modify |
-+-----------+------+-------+-----------------+--------+--------------+
-| AA3002020 | C    |   203 | 2020-05-03      |      1 |            0 |
-+-----------+------+-------+-----------------+--------+--------------+
++-----------+------+-------+-----------------+--------+--------------+-------------------+
+| id        | type | price | submission_date | status | agree_modify | lng_lat           |
++-----------+------+-------+-----------------+--------+--------------+-------------------+
+| AA3002020 | C    |   203 | 2020-05-25      |      1 |            0 | 118.7964732.05838 |
++-----------+------+-------+-----------------+--------+--------------+-------------------+
 
 
 

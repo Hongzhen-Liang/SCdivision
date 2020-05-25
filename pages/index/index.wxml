@@ -36,5 +36,8 @@
     <view class="usermotto">
       <text class="user-motto">{{motto}}</text>
     </view>
+    <view>
+      <text>当前经纬度:{{longitude}},{{latitude}}</text>
+    </view> 
   </view>
 </view>

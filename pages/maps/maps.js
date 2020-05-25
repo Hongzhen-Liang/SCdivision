@@ -1,8 +1,10 @@
+// pages/maps/maps.js
+
 function upload(message,that) {
-  var send_message = message[0]+','+message[1]+','+message[2]+','+app.globalData.pos+','+app.globalData.longitude+','+app.globalData.latitude
+  var send_message = message[0]
   console.log(send_message)
   wx.request({
-    url: 'http://120.78.209.24/send',
+    url: 'http://120.78.209.24/maps',
     data: {
       upload:JSON.stringify(send_message)
     },
@@ -12,17 +14,23 @@ function upload(message,that) {
       'chartset': 'utf-8'
     },
     success: function (res) {
-      if(res.data=='数据提交成功'||res.data=='重新入库成功'){
+      if(res.data!="商品未入库"){
+        var List = res.data.split(',')
         var newData = [{
-          code: message[0],
-          type: message[1],
-          price: message[2]
+          id: List[0],
+          type: List[1],
+          price: List[2],
+          submission_date: List[3],
+          status: List[4],
+          agree_modify: List[5],
+          lng_lat: List[6]+','+List[7]
         }];
         that.data.show = newData.concat(that.data.show);
         that.setData({
           show: that.data.show
         })
       }
+      
 
       wx.showToast({
         title: res.data,//这里打印出登录成功
@@ -31,38 +39,53 @@ function upload(message,that) {
       });
     },
     fail:function(res){
-    }
-    
+    }    
   })
 }
 
 
-const app = getApp()
 
-// pages/send/send.js
+
+
+
+
+
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    show: [],
-    status:""
+    latitude:0,
+    longitude:0,
+    show:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.checkSession({
-      success: function (res) {
-      },
-      fail: function (res) {
-        wx.reLaunch({
-          url: '../index/index'
+    var that = this;
+    
+    wx.getLocation({  //获取经纬度坐标
+      type: 'gcj02',
+      success(res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        that.setData({
+          latitude:res.latitude,
+          longitude:res.longitude
         })
-      },
-      complete: function (res) { },
+        // console.log(latitude,longitude)
+        const speed = res.speed
+        const accuracy = res.accuracy
+        // wx.openLocation({ //打开地图位置
+        //   latitude,
+        //   longitude,
+        //   scale: 28
+        // })
+      }
     })
   },
 
@@ -171,5 +194,19 @@ Page({
       complete: (res) => {
       }  
     })
+  },
+
+  locate_maps:function(e){
+    console.log(e.currentTarget.dataset.lnglat)
+    var locate_mes = e.currentTarget.dataset.lnglat.split(',')
+    const latitude=parseFloat(locate_mes[1])
+    const longitude=parseFloat(locate_mes[0])
+    wx.openLocation({ //打开地图位置
+      latitude,
+      longitude,
+      scale: 28
+    })
+
   }
+
 })

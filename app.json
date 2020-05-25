@@ -3,8 +3,14 @@
     "pages/index/index",
     "pages/send/send",
     "pages/logs/logs",
+    "pages/maps/maps",
     "pages/delete/delete"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示" 
+    }
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -27,6 +33,12 @@
         "text": "扫码出库",
         "iconPath": "images/icons/QRscan.png",
         "selectedIconPath": "images/icons/SQscanselected.png"
+      },
+      {
+        "pagePath": "pages/maps/maps",
+        "text": "位置",
+        "iconPath": "images/icons/dairy.png",
+        "selectedIconPath": "images/icons/dairyselected.png"
       },
       {
         "pagePath": "pages/index/index",
