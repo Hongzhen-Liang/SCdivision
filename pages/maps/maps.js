@@ -15,7 +15,7 @@ function upload(message,that) {
     },
     success: function (res) {
       if(res.data!="商品未入库"){
-        var List = res.data.split(',')
+        var List = res.data.split(',');
         var newData = [{
           id: List[0],
           type: List[1],
@@ -23,12 +23,12 @@ function upload(message,that) {
           submission_date: List[3],
           status: List[4],
           agree_modify: List[5],
-          lng_lat: List[6]+','+List[7]
+          lng_lat: List[6] + ',' + List[7]
         }];
         that.data.show = newData.concat(that.data.show);
         that.setData({
           show: that.data.show
-        })
+        }) 
       }
       
 
@@ -58,8 +58,13 @@ Page({
    */
   data: {
     latitude:0,
-    longitude:0,
-    show:[]
+    longitude:0,  
+    show:[],
+    isAvaliable:false,
+    showModal:false,
+    goodId:"",
+    goodType:"",
+    goodPrice:"",
   },
 
   /**
@@ -156,7 +161,6 @@ Page({
             {
               if(res.confirm)
               {
-                var data_length = that.data.show.length
                 wx.showToast({
                   title: '已录入等待服务器响应',
                   icon:'success',
@@ -207,6 +211,48 @@ Page({
       scale: 28
     })
 
-  }
+  },
 
+  inputButton:function(){
+    this.setData({
+      showModal:true
+    })
+  },
+
+  back:function()
+  {
+    this.setData({
+      showModal:false
+    })
+  },
+
+  idInput:function(e)
+  {
+    this.setData({
+      goodId:e.detail.value
+    })
+  },
+
+  typeInput: function (e) {
+    this.setData({
+      goodType: e.detail.value
+    })
+  },
+
+  priceInput: function (e) {
+    this.setData({
+      goodPrice: e.detail.value
+    })
+  },
+
+  ok:function()
+  {
+    var info = this.data.goodId+","+this.data.goodType+","+this.data.goodPrice;
+    var message = info.split(",");
+    console.log(message);
+    upload(message,this);
+    this.setData({
+      showModal: false
+    })
+  }
 })

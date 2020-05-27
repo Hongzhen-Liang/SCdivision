@@ -1,8 +1,27 @@
 <!--pages/send/send.wxml-->
-<view style="background: rgba(255,255,255,1);position:fixed;width:100%;height:3rem">
-  <button bindtap="check" style="margin-bottom:3%">扫码入库</button>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modalDlg" wx:if="{{showModal}}">
+  <view class='img_cancel'>
+    <image src='../../images/icons/good.png'></image>
+  </view>
+  <view class="block">
+    <label>编号</label>
+    <input id="goodId" type="text" bindinput="idInput"/>
+    <label>类型</label>
+    <input id="goodType" type="text" bindinput="typeInput"/>
+    <label>价格</label>
+    <input id="goodPrice" type="digit" bindinput="priceInput"/>
+  </view>
+  <button bindtap="ok">确定</button>
+  <view class='shutalert' bindtap="back">
+    <image src='../../images/icons/cancel.png'></image>
+  </view>
 </view>
-<view class="tr bg-w" style="position:fixed;margin-top:3rem">
+<view style="background: rgba(255,255,255,1);position:fixed;width:100%;height:5rem">
+  <button bindtap="check" style="margin-bottom:3%">查询信息</button>
+  <button class="inputButton" bindtap="inputButton">手动输入</button>
+</view>
+<view class="tr bg-w" style="position:fixed;margin-top:5rem">
     <view class="th big">编号</view>
     <view class="th">类型</view>
     <view class="th ">价格</view>

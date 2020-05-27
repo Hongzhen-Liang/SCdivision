@@ -42,7 +42,12 @@ Page({
    */
   data: {
     show: [],
-    status:""
+    status:"",
+    isAvaliable: false,
+    showModal: false,
+    goodId: "",
+    goodType: "",
+    goodPrice: "",
   },
 
   /**
@@ -171,6 +176,46 @@ Page({
       },
       complete: (res) => {
       }  
+    })
+  },
+
+  inputButton: function () {
+    this.setData({
+      showModal: true
+    })
+  },
+
+  back: function () {
+    this.setData({
+      showModal: false
+    })
+  },
+
+  idInput: function (e) {
+    this.setData({
+      goodId: e.detail.value
+    })
+  },
+
+  typeInput: function (e) {
+    this.setData({
+      goodType: e.detail.value
+    })
+  },
+
+  priceInput: function (e) {
+    this.setData({
+      goodPrice: e.detail.value
+    })
+  },
+
+  ok: function () {
+    var info = this.data.goodId + "," + this.data.goodType + "," + this.data.goodPrice;
+    var message = info.split(",");
+    console.log(message);
+    upload(message, this);
+    this.setData({
+      showModal: false
     })
   }
 })
