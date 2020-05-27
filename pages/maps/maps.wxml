@@ -61,7 +61,7 @@
         <view class="th big">经纬度</view>
         <view class="td">{{item.lng_lat}}</view>
       </view>
-      <button bindtap="locate_maps" data-lnglat="{{lng_lat}}" class="button">地图显示</button>
+      <button bindtap="locate_maps" data-lnglat="{{item.lng_lat}}" class="button">地图显示</button>
 
     </view>
     <!-- <view class="tr bg-g">
