@@ -39,7 +39,11 @@
  .button{
    background: rgb(50, 144, 207);
    color: #fff;
-   top:1rem;
+   top:0.25rem;
+   height: 1.5rem;
+   font-size:10px;
+   text-align: center;
+   
  }
  .inputButton{
    color: #13227a;
