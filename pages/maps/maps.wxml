@@ -1,5 +1,6 @@
 <!--pages/maps/maps.wxml-->
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal||show_edit_Modal}}"></view>
+
 <view class="modalDlg" wx:if="{{showModal}}">
   <view class='img_cancel'>
     <image src='../../images/icons/good.png'></image>
@@ -7,16 +8,54 @@
   <view class="block">
     <label>编号</label>
     <input id="goodId" type="text" bindinput="idInput"/>
-    <label>类型</label>
+    <!-- <label>类型</label>
     <input id="goodType" type="text" bindinput="typeInput"/>
     <label>价格</label>
-    <input id="goodPrice" type="digit" bindinput="priceInput"/>
+    <input id="goodPrice" type="digit" bindinput="priceInput"/> -->
   </view>
   <button bindtap="ok">确定</button>
   <view class='shutalert' bindtap="back">
     <image src='../../images/icons/cancel.png'></image>
   </view>
 </view>
+
+
+<view class="modalDlg" wx:if="{{show_edit_Modal}}">
+  <view class='img_cancel'>
+    <image src='../../images/icons/good.png'></image>
+  </view>
+  <view class="block">
+    <label>{{edit_tmp_type}}改为</label>
+    <input id="goodId" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='编号'}}" value="{{edit_tmp_value}}"/>
+    <!-- <label>类型</label> -->
+    <input id="goodType" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='类型'}}" value="{{edit_tmp_value}}"/>
+    <!-- <label>价格</label> -->
+    <input id="goodPrice" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='价格'}}" value="{{edit_tmp_value}}"/>
+    <!-- <label>库中</label> -->
+    <input id="goodInde" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='库中'}}" value="{{edit_tmp_value}}"/>
+    <!-- <label>可出库</label> -->
+    <input id="goodOutde" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='可出库'}}" value="{{edit_tmp_value}}"/>
+    <!--当前位置-->
+    <input id="goodlnglat" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='经纬度'}}" value="{{position}}"/>
+
+  </view>
+  <button bindtap="ok_edit">确定</button>
+  <view class='shutalert' bindtap="back">
+    <image src='../../images/icons/cancel.png'></image>
+  </view>
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
 <view style="background: rgba(255,255,255,1);position:fixed;width:100%;height:5rem;border-bottom:solid rgb(50, 144, 207);">
   <button bindtap="check" style="margin-bottom:3%">查询信息</button>
   <button class="inputButton" bindtap="inputButton">手动输入</button>
@@ -35,15 +74,15 @@
     <view style="margin-top:20rpx;">
       <view class="tr bg-g">
         <view class="th big">编号</view>
-        <view class="td">{{item.id}}</view>
+        <view class="td" bindtap="change_td" data-type="编号" data-value="{{item.id}}" data-id="{{item.id}}">{{item.id}}</view>
       </view>
       <view class="tr">
         <view class="th big">类型</view>
-        <view class="td">{{item.type}}</view>
+        <view class="td" bindtap="change_td" data-type="类型" data-value="{{item.type}}" data-id="{{item.id}}">{{item.type}}</view>
       </view>
       <view class="tr bg-g">
         <view class="th big">价格</view>
-        <view class="td">{{item.price}}</view>
+        <view class="td" bindtap="change_td" data-type="价格" data-value="{{item.price}}" data-id="{{item.id}}">{{item.price}}</view>
       </view>
       <view class="tr">
         <view class="th big">时间</view>
@@ -51,18 +90,17 @@
       </view>
       <view class="tr bg-g">
         <view class="th big">库中</view>
-        <view class="td">{{item.status}}</view>
+        <view class="td" bindtap="change_td" data-type="库中" data-value="{{item.status}}" data-id="{{item.id}}">{{item.status}}</view>
       </view>
       <view class="tr">
         <view class="th big">可出库</view>
-        <view class="td">{{item.agree_modify}}</view>
+        <view class="td" bindtap="change_td" data-type="可出库" data-value="{{item.agree_modify}}" data-id="{{item.id}}">{{item.agree_modify}}</view>
       </view>
       <view class="tr bg-g">
-        <view class="th big">经纬度</view>
-        <view class="td">{{item.lng_lat}}</view>
+        <view class="th big" bindtap="locate_maps" data-lnglat="{{item.lng_lat}}">经纬度</view>
+        <view class="td" bindtap="change_td" data-type="经纬度" data-value="{{item.lng_lat}}" data-id="{{item.id}}">{{item.lng_lat}}</view>
       </view>
-      <button bindtap="locate_maps" data-lnglat="{{item.lng_lat}}" class="button">地图显示</button>
-
+        <!-- <button bindtap="locate_maps" data-lnglat="{{item.lng_lat}}" class="button">地图显示</button> -->
     </view>
     <!-- <view class="tr bg-g">
       <view class="td big">{{id}}</view>

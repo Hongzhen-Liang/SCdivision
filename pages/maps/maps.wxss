@@ -65,7 +65,7 @@
 }
 .modalDlg{
     width: 550rpx;
-    height: 520rpx;
+    height: 300rpx;
     position: fixed;
     top: 25%;
     z-index: 9999;

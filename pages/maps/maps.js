@@ -1,8 +1,9 @@
 // pages/maps/maps.js
+const app = getApp()
 
 function upload(message,that) {
-  var send_message = message[0]
-  console.log(send_message)
+  var send_message = message
+  // console.log(send_message)
   wx.request({
     url: 'http://120.78.209.24/maps',
     data: {
@@ -14,7 +15,7 @@ function upload(message,that) {
       'chartset': 'utf-8'
     },
     success: function (res) {
-      if(res.data!="商品未入库"){
+      if(res.data!="商品未入库"&&res.data!="修改成功"){
         var List = res.data.split(',');
         var newData = [{
           id: List[0],
@@ -30,8 +31,6 @@ function upload(message,that) {
           show: that.data.show
         }) 
       }
-      
-
       wx.showToast({
         title: res.data,//这里打印出登录成功
         icon: 'none',
@@ -63,8 +62,14 @@ Page({
     isAvaliable:false,
     showModal:false,
     goodId:"",
-    goodType:"",
-    goodPrice:"",
+    edit_tmp_value1:"",//临时变量可代表id
+    position:"",//当前位置
+    show_edit_Modal:false,
+
+    edit_tmp_id:"",//当前的编号
+    edit_tmp_type:"",//当前编辑状态
+    edit_tmp_value:"",
+    
   },
 
   /**
@@ -166,7 +171,7 @@ Page({
                   icon:'success',
                   duration:500
                 })
-                upload(message, that)//上传到本地服务器
+                upload(message[0]+',', that)//上传到本地服务器
               }
               else if(res.cancel)
               {
@@ -200,6 +205,34 @@ Page({
     })
   },
 
+  idInput:function(e){
+    this.setData({
+      goodId:e.detail.value
+    })
+  },
+
+
+
+  //在位置页面修改事物
+  change_td:function(e){
+    if(app.globalData.pos=="admin")
+    {
+      console.log(e.currentTarget.dataset.type+':',e.currentTarget.dataset.value);
+
+      if(e.currentTarget.dataset.type=="经纬度")
+        this.setData({
+          position:app.globalData.longitude+','+app.globalData.latitude
+        })
+
+      this.setData({
+        show_edit_Modal:true,
+        edit_tmp_id:e.currentTarget.dataset.id,
+        edit_tmp_type:e.currentTarget.dataset.type,
+        edit_tmp_value:e.currentTarget.dataset.value
+      })
+    }
+  }
+  ,
   locate_maps:function(e){
     console.log(e.currentTarget.dataset.lnglat)
     var locate_mes = e.currentTarget.dataset.lnglat.split(',')
@@ -210,7 +243,6 @@ Page({
       longitude,
       scale: 28
     })
-
   },
 
   inputButton:function(){
@@ -222,37 +254,47 @@ Page({
   back:function()
   {
     this.setData({
-      showModal:false
+      showModal:false,
+      show_edit_Modal:false
     })
   },
 
-  idInput:function(e)
+
+
+
+  WhInput:function(e)
   {
     this.setData({
-      goodId:e.detail.value
+      edit_tmp_value1:e.detail.value
     })
   },
 
-  typeInput: function (e) {
-    this.setData({
-      goodType: e.detail.value
-    })
-  },
 
-  priceInput: function (e) {
-    this.setData({
-      goodPrice: e.detail.value
-    })
-  },
+
 
   ok:function()
   {
-    var info = this.data.goodId+","+this.data.goodType+","+this.data.goodPrice;
-    var message = info.split(",");
-    console.log(message);
-    upload(message,this);
+    // var info = this.data.goodId+","+this.data.goodType+","+this.data.goodPrice;
+    var info = this.data.goodId+',';
+    // var message = info.split(",");
+    console.log(info);
+    upload(info,this);
     this.setData({
       showModal: false
     })
+  },
+
+
+  ok_edit:function()
+  {
+    console.log("编号为:"+this.data.edit_tmp_id+"的"+this.data.edit_tmp_type+"从"+this.data.edit_tmp_value+"改为"+this.data.edit_tmp_value1)
+    var info = this.data.edit_tmp_id+','+this.data.edit_tmp_type+','+this.data.edit_tmp_value1;
+    console.log(info)
+    upload(info,this);
+    this.setData({
+      show_edit_Modal: false
+    })
   }
+
 })
+
