@@ -26,13 +26,13 @@
         <text class="userinfo-nickname" >{{realName}}</text>
       </block>
     </view>
-    <view wx:if="{{isActuallyAdmin}}" class="buttonBlock">
+    <!-- <view wx:if="{{isActuallyAdmin}}" class="buttonBlock">
       <button bindtap="changePosition" id="admin" class="button" style="font-size: 35rpx;">admin</button>
       <button bindtap="changePosition" id="depotManager"class="button" style="font-size: 35rpx;">depotManager</button>
       <button bindtap="changePosition" id="front" class="button" style="font-size: 35rpx;">front</button>
       <button bindtap="changePosition" id="driver" class="button" style="font-size: 35rpx;">driver</button>
       <button bindtap="changePosition" id="default" class="button" style="font-size: 35rpx;">default</button>
-    </view>
+    </view> -->
     <view class="usermotto">
       <text class="user-motto">{{motto}}</text>
     </view>

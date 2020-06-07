@@ -100,7 +100,7 @@
         <view class="th big" bindtap="locate_maps" data-lnglat="{{item.lng_lat}}">经纬度</view>
         <view class="td" bindtap="change_td" data-type="经纬度" data-value="{{item.lng_lat}}" data-id="{{item.id}}">{{item.lng_lat}}</view>
       </view>
-        <!-- <button bindtap="locate_maps" data-lnglat="{{item.lng_lat}}" class="button">地图显示</button> -->
+        <button bindtap="locate_maps" data-lnglat="{{item.lng_lat}}" class="button">地图显示</button>
     </view>
     <!-- <view class="tr bg-g">
       <view class="td big">{{id}}</view>

@@ -211,8 +211,6 @@ Page({
     })
   },
 
-
-
   //在位置页面修改事物
   change_td:function(e){
     if(app.globalData.pos=="admin")

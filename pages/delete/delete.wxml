@@ -7,10 +7,10 @@
   <view class="block">
     <label>编号</label>
     <input id="goodId" type="text" bindinput="idInput"/>
-    <label>类型</label>
+    <!-- <label>类型</label>
     <input id="goodType" type="text" bindinput="typeInput"/>
     <label>价格</label>
-    <input id="goodPrice" type="digit" bindinput="priceInput"/>
+    <input id="goodPrice" type="digit" bindinput="priceInput"/> -->
   </view>
   <button bindtap="ok">确定</button>
   <view class='shutalert' bindtap="back">
