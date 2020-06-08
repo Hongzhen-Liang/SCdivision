@@ -20,6 +20,13 @@ Page({
       'default':'无权限！'
     },
     isActuallyAdmin:app.globalData.isActuallyAdmin,//每次刷新都校验全局数据
+    isEmployee:false,
+    noAuthority:false,
+    requestAuthority:false,
+    posArray: ['仓库管理员','前台', '司机', '管理员'],
+    posIndex:0,
+    selectedPosition:'',
+    userId:wx.getStorageSync("userId"),
   },
   //事件处理函数
   bindViewTap: function() {
@@ -106,12 +113,32 @@ Page({
                       // 全局变量修改
                       app.globalData.pos = pos
                       app.globalData.name = name
+                      wx.setStorageSync("position", pos);
                       //只要登陆一次admin就有更改自身权限的能力
                       if(pos=='admin')
                       {
                         app.globalData.isActuallyAdmin=true;
                         that.setData({
                           isActuallyAdmin:true,
+                        })
+                      }
+                      //'depotManager': '仅允许出库入库',
+                      //'front': '仅改价格和判定货物能否出货',
+                      //'admin': '无约束',
+                      //'driver': '仅更改货物位置信息',
+                      //'default': '无权限！'
+                      else if (pos == 'front' || pos == 'depotManager' || pos == 'driver')
+                      {
+                        that.setData({
+                          isEmployee:true,
+                          noAuthority:false,
+                        })
+                      }
+                      else
+                      {
+                        that.setData({
+                          isEmployee:false,
+                          noAuthority:true,
                         })
                       }
                       that.setData({
@@ -148,6 +175,75 @@ Page({
         wx.hideToast();
       }
     });
+  },
+  //授权页面跳转
+  navigateToAuthorityPage:function(){
+    wx.navigateTo({
+      url: '../authority/authority',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  navigateToEmployeeManagePage:function(){
+    wx.navigateTo({
+      url: '../employeeManage/employeeManage',
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+  //显示权限申请信息输入窗口
+  requestingAuthority:function(){
+    this.setData({
+      requestAuthority:true
+    })
+  },
+  back:function(){
+
+    this.setData({
+      requestAuthority:false
+    })
+  },
+  positionChange: function (e) {
+    //两个赋值不能放一起会引起异步操作带来的bug
+    this.setData({
+      posIndex: e.detail.value,
+    })
+    this.setData({
+      selectedPosition: this.data.posArray[this.data.posIndex]
+    })
+  },
+  ok:function(){
+   wx.request({//需要完善插入操作，不会写，注意职位输入项是中文要匹对成相应的英文！
+     url: 'http://120.78.209.24/authorizeQueue',
+     data: {
+       wxid: JSON.stringify(wx.getStorageSync('userId').toString()), //匹配码
+       position: JSON.stringify('position'),
+       realName: JSON.stringify(''),
+     },
+     method: 'POST',
+     header: {
+       'content-type': 'application/x-www-form-urlencoded',
+       'chartset': 'utf-8'
+     },
+     success(res)
+     {
+       wx.showToast({
+         title: '待审核',
+         duration: 2000,
+       })
+     },
+     fail(res){
+      wx.showToast({
+        title:'操作失败',
+        duration:2000,
+      })
+     }
+   })
+   this.setData({
+     requestingAuthority:false
+   })
   },
   bindGetUserInfo: function(e) {
     if (e.detail.userInfo) {
@@ -215,6 +311,44 @@ Page({
       imageUri: '../../images/touxiang/' + cpos + '.png',
       motto: '权限说明：' + this.data.explanation[cpos],
     })
+    //从上面copy的代码
+    if (cpos == 'admin') {
+      wx.showTabBar({
+        aniamtion: true,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+    }
+    //'depotManager': '仅允许出库入库',
+    //'front': '仅改价格和判定货物能否出货',
+    //'admin': '无约束',
+    //'driver': '仅更改货物位置信息',
+    //'default': '无权限！'
+    else if (cpos == 'front' || cpos == 'depotManager' || cpos == 'driver') {
+      wx.showTabBar({
+        aniamtion: true,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+      that.setData({
+        isEmployee: true,
+        noAuthority:false
+      })
+    }
+    else {
+      that.setData({
+        isEmployee:false,
+        noAuthority: true
+      });
+      wx.hideTabBar({
+        aniamtion: true,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+    }
     // 更改全局变量，告诉服务器(driver、admin)身份是什么
     app.globalData.pos=cpos
   },

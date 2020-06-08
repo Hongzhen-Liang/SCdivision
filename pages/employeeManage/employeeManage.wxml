@@ -1,0 +1,38 @@
+<!--pages/employeeManage/employeeManage.wxml-->
+<view class="head">
+  <text>用户管理</text>
+</view>
+<view wx:for="{{employeeInfo}}" style="100%" >
+  <view class="employeeInfo" data-detail="{{item}}" bindtap="requestFixInfo" >
+    <view style="width:36px;height:32px">
+      <image src="../../images/touxiang/{{item.position}}.png" style="width:32px;height:32px;"></image>
+    </view>
+    <view class="detail">
+      <text style="font-size:16px">{{item.realName}}</text>
+      <text style="font-size:10px;color:#bfbfbf;">{{item.wxid}}</text>
+    </view>
+  </view>
+  <view class="divide"></view>
+</view>
+
+<!-- 信息修改弹窗 -->
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{fixInfo}}"></view>
+<view class="modalDlg" wx:if="{{fixInfo}}">
+  <view class='img_cancel'>
+    <image src='../../images/icons/manage.png'></image>
+  </view>
+  <view class="block">
+    <label>微信编号</label>
+    <input id="userId" type="text" disabled="true" value="{{userId}}"/>
+    <label>真实姓名</label>
+    <input id="userName" type="text" bindinput="nameInput" value="{{userName}}"/>
+    <label>当前职位</label>
+    <picker bindchange="positionChange" value="{{posIndex}}" range="{{posArray}}">
+      <input id="position" type="text" disabled="true" value="{{userPosition}}"/>
+    </picker>
+  </view>
+  <button bindtap="ok">确认修改</button>
+  <view class='shutalert' bindtap="back">
+    <image src='../../images/icons/cancel.png'></image>
+  </view>
+</view>

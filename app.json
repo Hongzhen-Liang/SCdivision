@@ -4,11 +4,13 @@
     "pages/send/send",
     "pages/logs/logs",
     "pages/maps/maps",
-    "pages/delete/delete"
+    "pages/delete/delete",
+    "pages/authority/authority",
+    "pages/employeeManage/employeeManage"
   ],
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序位置接口的效果展示" 
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
   "window": {

@@ -1,0 +1,24 @@
+<!--pages/authority/authority.wxml-->
+<view class="title">权限申请队列</view>
+<!-- 清空队列（数据库里最好） -->
+<view id="clear" bindtap="clearQueue" class="clearButton">
+  <image src="../../images/icons/clear.png"></image>
+</view>
+
+
+<block wx:for="{{authorityQueue}}" wx:key="{[wxid]}" class="authorityBlock">
+  <view>
+    <label>微信编号：</label><text style="color:#13227a">{{item.wxid}}</text>
+  </view>
+  <view>
+    <label>真实姓名：</label><text style="color:#13227a">{{item.realName}}</text>
+  </view>
+  <view>
+    <label>申请权限：</label><text style="color:#13227a">{{item.requestedPosition}}</text>
+  </view>
+  <view class="buttonView">
+    <button id="ok" bindtap="authorize">拒绝</button>
+    <button id="no" bindtap="deleteFromQueue"style="background: #5160b6;">批准</button>
+  </view>
+  <view class="divide"></view>
+</block>

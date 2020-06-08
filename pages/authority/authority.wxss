@@ -1,0 +1,40 @@
+/* pages/authority/authority.wxss */
+.title{
+  width: 100%;
+  text-align: center;
+  color: #13227a;
+}
+.authorityBlock{
+  width: 100%;
+  height: 100%;
+}
+.buttonView{
+  margin-top: 0.5rem;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 2rem;
+  align-items: center;
+}
+.buttonView button{
+  background: #13227a;
+  color: #FFF;
+  width: 50%;
+  border-radius: 0;
+}
+.divide{
+  margin-top: 0.5rem;
+  margin-bottom: 0.3rem;
+  width: 100%;
+  background: #c1cbff;
+  height: 0.1rem;
+}
+.clearButton{
+  position: absolute;
+  top: 0;
+  right: 0.5rem;  
+}
+.clearButton image{
+  width: 24px;
+  height: 24px;
+}

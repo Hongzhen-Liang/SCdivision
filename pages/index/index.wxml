@@ -26,18 +26,49 @@
         <text class="userinfo-nickname" >{{realName}}</text>
       </block>
     </view>
-    <!-- <view wx:if="{{isActuallyAdmin}}" class="buttonBlock">
-      <button bindtap="changePosition" id="admin" class="button" style="font-size: 35rpx;">admin</button>
-      <button bindtap="changePosition" id="depotManager"class="button" style="font-size: 35rpx;">depotManager</button>
-      <button bindtap="changePosition" id="front" class="button" style="font-size: 35rpx;">front</button>
-      <button bindtap="changePosition" id="driver" class="button" style="font-size: 35rpx;">driver</button>
-      <button bindtap="changePosition" id="default" class="button" style="font-size: 35rpx;">default</button>
-    </view> -->
+    <view wx:if="{{isActuallyAdmin}}" class="buttonBlock">
+      <button bindtap="changePosition" id="admin" class="button" style="width:40%;margin-left:0;">admin</button>
+      <button bindtap="changePosition" id="depotManager"class="button" style="width:40%;margin-left:0;">depotManager</button>
+      <button bindtap="changePosition" id="front" class="button" style="width:40%;margin-left:0;">front</button>
+      <button bindtap="changePosition" id="driver" class="button" style="width:40%;margin-left:0;">driver</button>
+      <button bindtap="changePosition" id="default" class="button" style="width:40%;margin-left:0;">default</button>
+    </view>
     <view class="usermotto">
       <text class="user-motto">{{motto}}</text>
     </view>
     <view>
       <text>当前经纬度:{{longitude}},{{latitude}}</text>
     </view> 
+  </view>
+  <view>
+    <!-- 当审批队列里有待审批的权限申请时要加‘ #13227a ’色的标记 -->
+    <view wx:if="{{isActuallyAdmin}}">
+      <button bindtap="navigateToAuthorityPage">权限审批</button>
+      <button bindtap="navigateToEmployeeManagePage">员工管理</button>
+    </view>
+    <!-- default用户申请权限进入审批队列 -->
+    <button wx:if="{{noAuthority}}" bindtap="requestingAuthority">权限申请</button>
+  </view>
+</view>
+
+
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{requestAuthority}}"></view>
+<view class="modalDlg" wx:if="{{requestAuthority}}">
+  <view class='img_cancel'>
+    <image src='../../images/icons/authority.png'></image>
+  </view>
+  <view class="block">
+    <label>微信编号</label>
+    <input id="userId" type="text" disabled="true" value="{{userId}}"/>
+    <label>真实姓名</label>
+    <input id="userName" type="text" bindinput="nameInput"/>
+    <label>申请职位</label>
+    <picker bindchange="positionChange" value="{{posIndex}}" range="{{posArray}}">
+      <input id="position" type="text" disabled="true" value="{{selectedPosition}}"/>
+    </picker>
+  </view>
+  <button bindtap="ok">确认申请</button>
+  <view class='shutalert' bindtap="back">
+    <image src='../../images/icons/cancel.png'></image>
   </view>
 </view>
