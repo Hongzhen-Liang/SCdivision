@@ -20,7 +20,7 @@ app = Flask(__name__)
 def hello_world():
     return "It''s working"
 
-
+# 初始界面设置
 @app.route('/index',methods=['POST'])
 def index():
     upload = str(json.loads(request.values.get("wxid")))
@@ -28,16 +28,50 @@ def index():
     conn = pymysql.connect(host='127.0.0.1', user=user,password=password,database=database,charset=charset)
     cursor = conn.cursor()
     
-    sql="select realName,position from users where userId=%s"
+    sql="select realName,position,addmited from users where userId=%s"
+    res='华南师团,default'
     try:
         res=cursor.execute(sql,upload)
         message = cursor.fetchone()
-        res=message[0]+','+message[1]
+        if message[2]=='1':
+            res=message[0]+','+message[1]
+
     except:
-        res='华南师团,default'
+        # 若是没找到则添加用户
+        sql = "insert into users(userId,realName,position,addmited) values(%s,'华南师团','default','1')"
+        cursor.execute(sql,upload)
+        
     cursor.close()
     conn.close()
     return json.dumps(res)
+
+
+# 申请名字和职位函数
+@app.route('/authorizeQueue',methods=['POST'])
+def authorizeQueue():
+    conn = pymysql.connect(host='127.0.0.1', user=user,password=password,database=database,charset=charset)
+    cursor = conn.cursor()
+
+    wxid = str(json.loads(request.values.get("wxid")))
+    position = str(json.loads(request.values.get("position")))
+    realName = str(json.loads(request.values.get("realName")))
+
+
+    sql="select realName,position from users where userId=%s"
+    cursor.execute(sql,wxid)
+    message=cursor.fetchone()
+
+    if message[1]=='admin':
+        cursor.close()
+        conn.close()
+        return '不能更改管理员权限'
+    
+    sql="update users set realName=%s,position=%s,addmited=%s where id=%s;"
+    cursor.execute(sql,[realName,position,'0',wxid])
+    print(wxid,position,realName)
+    cursor.close()
+    conn.close()
+    return 'yes'
 
 # 查询函数
 @app.route('/maps',methods=['POST'])

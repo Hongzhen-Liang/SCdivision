@@ -42,7 +42,8 @@ update depot set agree_modify=1;
 2.create table users(
     userId varchar(50) primary key not null,
     realName varchar(20),
-    position varchar(10) default 'default'
+    position varchar(10) default 'default'，
+    addmited varchar(2) default '1'
 );
 
 !!!注意初始化的属性是latin1,无法输入中文,要改成utf8

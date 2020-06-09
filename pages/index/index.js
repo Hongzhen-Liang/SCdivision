@@ -2,6 +2,51 @@
 //获取应用实例
 const app = getApp()
 
+function upload_name_select(message,that) {
+  var send_message = message
+  // console.log(send_message)
+  wx.request({
+    url: 'http://120.78.209.24/maps',
+    data: {
+      upload:JSON.stringify(send_message)
+    },
+    method: "POST",
+    header: {
+      'content-type': 'application/x-www-form-urlencoded',
+      'chartset': 'utf-8'
+    },
+    success: function (res) {
+      if(res.data!="商品未入库"&&res.data!="修改成功"){
+        var List = res.data.split(',');
+        var newData = [{
+          id: List[0],
+          type: List[1],
+          price: List[2],
+          submission_date: List[3],
+          status: List[4],
+          agree_modify: List[5],
+          lng_lat: List[6] + ',' + List[7]
+        }];
+        that.data.show = newData.concat(that.data.show);
+        that.setData({
+          show: that.data.show
+        }) 
+      }
+      wx.showToast({
+        title: res.data,//这里打印出登录成功
+        icon: 'none',
+        duration: 3000
+      });
+    },
+    fail:function(res){
+    }    
+  })
+}
+
+
+
+
+
 Page({
   data: {
 
@@ -25,8 +70,9 @@ Page({
     requestAuthority:false,
     posArray: ['仓库管理员','前台', '司机', '管理员'],
     posIndex:0,
-    selectedPosition:'',
+    selectedPosition:'',//申请的职位
     userId:wx.getStorageSync("userId"),
+    name_Input:''//申请真实名字
   },
   //事件处理函数
   bindViewTap: function() {
@@ -199,8 +245,14 @@ Page({
       requestAuthority:true
     })
   },
-  back:function(){
+  nameInput:function(e){
+    this.setData({
+      name_Input:e.detail.value
+    })
+  },
 
+  //确认函数
+  back:function(){
     this.setData({
       requestAuthority:false
     })
@@ -215,12 +267,31 @@ Page({
     })
   },
   ok:function(){
+    var message=wx.getStorageSync('userId').toString()+','+this.data.name_Input+','+this.data.selectedPosition;
+    console.log(message)
+    var select_pos='';
+    //upload_name_select(message,this);
+    switch(this.data.selectedPosition){
+      case '仓库管理员':
+        select_pos='depotManager';
+        break;
+      case '前台':
+        select_pos='front';
+        break;
+      case '司机':
+        select_pos='driver';
+        break;
+      case '管理员':
+        select_pos='admin';
+        break;   
+    }
+
    wx.request({//需要完善插入操作，不会写，注意职位输入项是中文要匹对成相应的英文！
      url: 'http://120.78.209.24/authorizeQueue',
      data: {
        wxid: JSON.stringify(wx.getStorageSync('userId').toString()), //匹配码
-       position: JSON.stringify('position'),
-       realName: JSON.stringify(''),
+       position: JSON.stringify(select_pos),
+       realName: JSON.stringify(this.data.name_Input)
      },
      method: 'POST',
      header: {
@@ -229,8 +300,12 @@ Page({
      },
      success(res)
      {
-       wx.showToast({
-         title: '待审核',
+       var titlem='待审核'
+      if(res.data!='yes'){
+        titlem=res.data;
+      } 
+      wx.showToast({
+         title: titlem,
          duration: 2000,
        })
      },
