@@ -1,13 +1,55 @@
 // pages/employeeManage/employeeManage.js
+
+function upload_manager(that) {
+  wx.request({
+    url: 'http://120.78.209.24/manager',
+    method: "GET",
+    header: {
+      'Content-Type': 'application/json'
+    },
+    success: function (res) {
+      // wx.showToast({
+      //   title: 'yes',//这里打印出登录成功
+      //   icon: 'none',
+      //   duration: 3000
+      // });
+
+      var message=res.data
+      // console.log(res.data.length);
+      for(var i=0;i<res.data.length;i=i+1){
+        // console.log(message[i]);
+        if(message[i][3]=='0') //如果该用户仍未被审核则标记为默认
+          var tmp={ 'wxid': message[i][0], 'realName': message[i][1], 'position': 'default' };
+        else var tmp={ 'wxid': message[i][0], 'realName': message[i][1], 'position': message[i][2] }
+        var tmp_arr=that.data.employeeInfo;
+        tmp_arr.push(tmp);
+        that.setData({
+          employeeInfo: tmp_arr
+        })
+      }
+    },
+    fail:function(res){
+    }    
+  })
+}
+
+
+
+
+
+
+
+
 var app=getApp();
 Page({
   data: {
     //所有用户信息库建议按照职业分步查询，这样插入好归类
     employeeInfo: [
-      { 'wxid': 'oBtgM5Ji7828jqbyQYM3KhMRJOeE', 'realName': 'hx', 'position': 'admin',}, 
-      { 'wxid': 'oBtgM5Ji7828jqbyQYM3KhMRJOeE', 'realName': 'hx', 'position': 'driver' }, 
-      { 'wxid': 'oBtgM5Ji7828jqbyQYM3KhMRJOeE', 'realName': 'hx', 'position': 'front' }, 
-      { 'wxid': 'oBtgM5Ji7828jqbyQYM3KhMRJOeE', 'realName': 'hx', 'position': 'depotManager' }],
+      //{ 'wxid': 'oBtgM5Ji7828jqbyQYM3KhMRJOeE', 'realName': 'hx', 'position': 'admin',}, 
+      //{ 'wxid': 'oBtgM5Ji7828jqbyQYM3KhMRJOeE', 'realName': 'hx', 'position': 'driver' }, 
+      //{ 'wxid': 'oBtgM5Ji7828jqbyQYM3KhMRJOeE', 'realName': 'hx', 'position': 'front' }, 
+      //{ 'wxid': 'oBtgM5Ji7828jqbyQYM3KhMRJOeE', 'realName': 'hx', 'position': 'depotManager' }
+    ],
     fixInfo:false,
     userId:'',
     userName:'',
@@ -19,10 +61,18 @@ Page({
   },
   
   onLoad: function (options) {
-
+    upload_manager(this);
+    // var tmp={ 'wxid': 'oBtgM5Ji7828jqbyQYM3KhMRJOeE', 'realName': 'hx', 'position': 'front' }
+    // var tmp_arr=this.data.employeeInfo;
+    // tmp_arr.push(tmp);
+    // this.setData({
+    //   employeeInfo: tmp_arr
+    // })
   },
   requestFixInfo:function(e){
-    console.log(e)
+    
+    // console.log(e)
+    if(e.currentTarget.dataset.detail.position!='admin')
     this.setData({
       fixInfo:true,
       userId:e.currentTarget.dataset.detail.wxid,
@@ -40,20 +90,35 @@ Page({
     })
   },
   ok: function(){
-    var message={
-      'wxid': this.data.userId,
-      'realName': this.data.userName,
-      'position': this.data.userPosition,
-    }
-    console.log(message);
     //服务器操作
-
+    wx.request({
+      url: 'http://120.78.209.24/manager_change',
+      data: {
+        wxid:JSON.stringify(this.data.userId),
+        realName:JSON.stringify(this.data.userName),
+        position:JSON.stringify(this.data.userPosition)
+      },
+      method: "POST",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8'
+      },
+      success: function (res) {
+        wx.showToast({
+          title: res.data,//这里打印出登录成功
+          icon: 'none',
+          duration: 3000
+        });
+      },
+      fail:function(res){
+      }    
+    })
     //修改当前页面或者刷新？
     
     this.setData({
       fixInfo:false
     })
-    },
+  },
   back:function(){
     this.setData({
       fixInfo:false
