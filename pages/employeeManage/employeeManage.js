@@ -90,6 +90,7 @@ Page({
     })
   },
   ok: function(){
+    var that=this;
     //服务器操作
     wx.request({
       url: 'http://120.78.209.24/manager_change',
@@ -109,12 +110,25 @@ Page({
           icon: 'none',
           duration: 3000
         });
+
+        //刷新
+        var infoArray = that.data.employeeInfo;
+        for (var i = 0; i < infoArray.length; i++) {
+          if (infoArray[i].wxid == that.data.userId) {
+            infoArray[i].realName = that.data.userName;
+            infoArray[i].position = that.data.userPosition;
+            break;
+          }
+        }
+        that.setData({
+          employeeInfo: infoArray
+        })
       },
       fail:function(res){
       }    
-    })
-    //修改当前页面或者刷新？
-    
+    });
+
+    //关闭窗口
     this.setData({
       fixInfo:false
     })
