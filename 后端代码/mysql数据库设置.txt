@@ -14,7 +14,7 @@ type varchar(5),
 price float,
 submission_date DATE,
 status int default 1,
-agree_modify default 0,
+agree_modify varchar(2) default '0',
 lng_lat varchar(30) default "0,0"
 );
 
@@ -43,16 +43,24 @@ update depot set agree_modify=1;
     userId varchar(50) primary key not null,
     realName varchar(20),
     position varchar(10) default 'default'，
-    addmited varchar(2) default '1'
+    admitted varchar(2) default '1'
 );
 
 !!!注意初始化的属性是latin1,无法输入中文,要改成utf8
 show create table users;
 alter table users  modify realName  varchar(20) character set utf8;
 
-3.insert into users(userId,realName,position) values('oBtgM5Ji7828jqbyQYM3KhMRJOeE','胡翔','admin'); 
+3.insert into users(userId,realName,position,admitted) values('oBtgM5Ji7828jqbyQYM3KhMRJOeE','胡翔','admin','1'); 
 # 'oBtgM5O3YiWv5qT_QTJ__nAFXdhs','梁鸿振','admin'
-insert into users(userId,realName,position) values('oBtgM5O3YiWv5qT_QTJ__nAFXdhs','梁鸿振','admin');
+insert into users(userId,realName,position,admitted) values('oBtgM5O3YiWv5qT_QTJ__nAFXdhs','梁鸿振','admin','1');
 
 
 
++------------------------------+-----------+----------+----------+
+| userId                       | realName  | position | admitted |
++------------------------------+-----------+----------+----------+
+| oBtgM5Ji7828jqbyQYM3KhMRJOeE | 胡翔      | admin    | 1        |
+| oBtgM5KRgJKO6bkKyr7lMH8k1NIc | 李廷澳    | admin    | 1        |
+| oBtgM5O3YiWv5qT_QTJ__nAFXdhs | 梁鸿振    | admin    | 1        |
+| test_test_test_test          | test      | depot    | 0        |
++------------------------------+-----------+----------+----------+

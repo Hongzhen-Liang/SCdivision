@@ -20,6 +20,7 @@ function upload(message,that) {
       for(var i=0;i<tmp_show.length;i=i+1){
         if(tmp_show[i].id==List[0]) tmp_show.splice(i,1);
       }
+      console.log(List)
 
       if(res.data!="商品未入库"&&res.data!="修改成功"){
         // var List = res.data.split(',');
@@ -71,6 +72,7 @@ Page({
     edit_tmp_value1:"",//临时变量可代表id
     position:"",//当前位置
     show_edit_Modal:false,
+    globalposi:"",//映射全局身份
 
     edit_tmp_id:"",//当前的编号
     edit_tmp_type:"",//当前编辑状态
@@ -83,6 +85,11 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    
+    this.setData({
+      globalposi:app.globalData.pos
+    })
+    console.log(this.data.globalposi)
     
     wx.getLocation({  //获取经纬度坐标
       type: 'gcj02',
@@ -116,7 +123,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      globalposi:app.globalData.pos
+    })
   },
 
   /**
@@ -305,8 +314,45 @@ Page({
 
   showAll:function()
   {
+    var that=this;
     wx.request({
-      url: 'http://120.78.209.24/maps',
+      url: 'http://120.78.209.24/maps_all',
+      method: "GET",
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function (res) {
+        wx.showToast({
+          title: '已显示所有',//这里打印出登录成功
+          icon: 'none',
+          duration: 3000
+        });
+        var List;
+        var message=res.data;
+        // console.log(res.data.length);
+        for(var i=0;i<res.data.length;i=i+1){
+          // console.log(message[i]);
+          List=message[i];
+          // var tmp_show=this.data.show;
+          var newData = [{
+            id: List[0],
+            type: List[1],
+            price: List[2].toString(),
+            submission_date: List[3],
+            status: List[4].toString(),
+            agree_modify: List[5],
+            lng_lat: List[6]
+          }];
+          // console.log(newData);
+          // console.log(this.data.show)
+          var tmp_show = newData.concat(that.data.show);
+          that.setData({
+            show: tmp_show
+          }) 
+        }
+      },
+      fail:function(res){
+      }    
     })
   },
 

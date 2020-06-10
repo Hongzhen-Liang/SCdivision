@@ -81,17 +81,34 @@ Page({
           icon: 'none',
           duration: 3000
         });
-
       },
       fail:function(res){
       }    
     })
-
-
-
-  }
-  ,
-
+  },
+  clearQueue:function(e){
+    wx.request({
+      url: 'http://120.78.209.24/authority_admitted',
+      data: {
+        wxid:JSON.stringify('sda'),
+        status:JSON.stringify('clear')
+      },
+      method: "POST",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8'
+      },
+      success: function (res) {
+        wx.showToast({
+          title: res.data,//这里打印出登录成功
+          icon: 'none',
+          duration: 3000
+        });
+      },
+      fail:function(res){
+      }    
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

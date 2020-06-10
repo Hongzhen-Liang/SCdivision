@@ -121,7 +121,7 @@
     </view> -->
   </block>
 </scorll-view>
-<view style="position:fixed;background:rgba(255,255,255,1);bottom:0;height:2rem;width:100%;">
+<view style="position:fixed;background:rgba(255,255,255,1);bottom:0;height:2rem;width:100%;" wx:if="{{globalposi=='admin'||globalposi=='depotManager'}}">
   <button class="showAll" style="width:98%;margin-right:1%" bindtap="showAll">显示所有</button>
 </view>
 <!-- <view>
