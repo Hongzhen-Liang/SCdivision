@@ -15,8 +15,14 @@ function upload(message,that) {
       'chartset': 'utf-8'
     },
     success: function (res) {
+      var List = res.data.split(',');
+      var tmp_show=that.data.show
+      for(var i=0;i<tmp_show.length;i=i+1){
+        if(tmp_show[i].id==List[0]) tmp_show.splice(i,1);
+      }
+
       if(res.data!="商品未入库"&&res.data!="修改成功"){
-        var List = res.data.split(',');
+        // var List = res.data.split(',');
         var newData = [{
           id: List[0],
           type: List[1],
@@ -213,8 +219,7 @@ Page({
 
   //在位置页面修改事物
   change_td:function(e){
-    if(app.globalData.pos=="admin")
-    {
+    if(app.globalData.pos=="admin"){
       console.log(e.currentTarget.dataset.type+':',e.currentTarget.dataset.value);
 
       if(e.currentTarget.dataset.type=="经纬度")
@@ -226,9 +231,49 @@ Page({
         show_edit_Modal:true,
         edit_tmp_id:e.currentTarget.dataset.id,
         edit_tmp_type:e.currentTarget.dataset.type,
-        edit_tmp_value:e.currentTarget.dataset.value
+        edit_tmp_value:e.currentTarget.dataset.value,
+        edit_tmp_value1:e.currentTarget.dataset.value
       })
     }
+    if(app.globalData.pos=="front"){
+      if(e.currentTarget.dataset.type=="价格"|e.currentTarget.dataset.type=="可出库"){
+        this.setData({
+          show_edit_Modal:true,
+          edit_tmp_id:e.currentTarget.dataset.id,
+          edit_tmp_type:e.currentTarget.dataset.type,
+          edit_tmp_value:e.currentTarget.dataset.value,
+          edit_tmp_value1:e.currentTarget.dataset.value
+        })
+      }  
+    }
+    if(app.globalData.pos=="driver"){
+      if(e.currentTarget.dataset.type=="经纬度"){      
+        this.setData({
+          show_edit_Modal:true,
+          edit_tmp_id:e.currentTarget.dataset.id,
+          edit_tmp_type:e.currentTarget.dataset.type,
+          edit_tmp_value:e.currentTarget.dataset.value,
+          edit_tmp_value1:e.currentTarget.dataset.value
+        })
+        this.setData({
+          position:app.globalData.longitude+','+app.globalData.latitude,
+        })
+      }
+    }
+    if(app.globalData.pos=="depotManager"){
+      if(e.currentTarget.dataset.type=="库中"){
+        this.setData({
+          show_edit_Modal:true,
+          edit_tmp_id:e.currentTarget.dataset.id,
+          edit_tmp_type:e.currentTarget.dataset.type,
+          edit_tmp_value:e.currentTarget.dataset.value,
+          edit_tmp_value1:e.currentTarget.dataset.value
+        })
+      }  
+    }
+
+
+
   }
   ,
   locate_maps:function(e){
@@ -287,7 +332,7 @@ Page({
   {
     console.log("编号为:"+this.data.edit_tmp_id+"的"+this.data.edit_tmp_type+"从"+this.data.edit_tmp_value+"改为"+this.data.edit_tmp_value1)
     var info = this.data.edit_tmp_id+','+this.data.edit_tmp_type+','+this.data.edit_tmp_value1;
-    console.log(info)
+    console.log('this is info',info)
     upload(info,this);
     this.setData({
       show_edit_Modal: false
