@@ -303,7 +303,12 @@ Page({
   },
 
 
-
+  showAll:function()
+  {
+    wx.request({
+      url: 'http://120.78.209.24/maps',
+    })
+  },
 
   WhInput:function(e)
   {
