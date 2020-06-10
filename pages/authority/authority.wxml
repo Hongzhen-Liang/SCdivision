@@ -17,8 +17,8 @@
     <label>申请权限：</label><text style="color:#13227a">{{item.requestedPosition}}</text>
   </view>
   <view class="buttonView">
-    <button id="ok" bindtap="authorize">拒绝</button>
-    <button id="no" bindtap="deleteFromQueue"style="background: #5160b6;">批准</button>
+    <button id="ok" bindtap="authorize" data-wxid="{{item.wxid}}">拒绝</button>
+    <button id="no" bindtap="deleteFromQueue"style="background: #5160b6;" data-wxid="{{item.wxid}}">批准</button>
   </view>
   <view class="divide"></view>
 </block>
