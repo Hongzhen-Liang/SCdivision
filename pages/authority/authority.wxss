@@ -14,13 +14,16 @@
   width: 100%;
   justify-content: center;
   height: 2rem;
+  left: 0;
   align-items: center;
 }
 .buttonView button{
   background: #13227a;
   color: #FFF;
-  width: 50%;
-  border-radius: 0;
+  width: 90%;
+  border-radius: 1rem;
+  font-size:0.9rem;
+  justify-content: center;
 }
 .divide{
   margin-top: 0.5rem;

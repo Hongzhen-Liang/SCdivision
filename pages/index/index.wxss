@@ -136,11 +136,17 @@
     width: 110rpx;
     margin: 0rpx auto
 }
-
 .shutalert image{
     width: 100rpx;
     height: 100rpx;
     position: absolute;
     bottom: -120rpx;
+}
+.authorityBtn{
+  margin-top:0.5rem;
+  border-radius: 1rem;
+  background: rgb(31, 91, 131);
+  color: white;
+  font-size:0.9rem;
 }
 

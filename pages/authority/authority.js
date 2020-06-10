@@ -81,6 +81,7 @@ Page({
           icon: 'none',
           duration: 3000
         });
+
       },
       fail:function(res){
       }    
