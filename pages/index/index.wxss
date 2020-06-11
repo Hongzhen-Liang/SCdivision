@@ -61,11 +61,10 @@
 
 /* 没必要特设样式，否则会覆盖姓名文字 */
 .buttonBlock{
-  width: 100%;
+  width: 40%;
   position: absolute;
-  display: felx;
+  left:0;
   top:0;
-  flex-flow: column;
 }
 
  .mask{

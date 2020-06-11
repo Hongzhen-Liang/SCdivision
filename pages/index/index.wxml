@@ -28,11 +28,11 @@
     </view>
     <view wx:if="{{isActuallyAdmin}}" class="buttonBlock">
       <view wx:if="{{showChangeBtn}}">
-      <button bindtap="changePosition" id="admin" class="button" style="width:40%;margin-left:0;">admin</button>
-      <button bindtap="changePosition" id="depotManager"class="button" style="width:40%;margin-left:0;">depotManager</button>
-      <button bindtap="changePosition" id="front" class="button" style="width:40%;margin-left:0;">front</button>
-      <button bindtap="changePosition" id="driver" class="button" style="width:40%;margin-left:0;">driver</button>
-      <button bindtap="changePosition" id="default" class="button" style="width:40%;margin-left:0;">default</button>
+      <button bindtap="changePosition" id="admin" class="button" style="width:100%;margin-left:0;">admin</button>
+      <button bindtap="changePosition" id="depotManager"class="button" style="width:100%;margin-left:0;">depotManager</button>
+      <button bindtap="changePosition" id="front" class="button" style="width:100%;margin-left:0;">front</button>
+      <button bindtap="changePosition" id="driver" class="button" style="width:100%;margin-left:0;">driver</button>
+      <button bindtap="changePosition" id="default" class="button" style="width:100%;margin-left:0;">default</button>
       </view>
     </view>
     <view class="usermotto">
