@@ -235,12 +235,27 @@ Page({
         this.setData({
           position:app.globalData.longitude+','+app.globalData.latitude
         })
-
+      //这里是为了将库中和可出库的1,0改为是,否
+      if(e.currentTarget.dataset.type=="库中"|e.currentTarget.dataset.type=="可出库"){
+        var msg;
+        if(e.currentTarget.dataset.value=="1"){
+          msg="是"
+        }else{
+          msg="否"
+        }
+        this.setData({
+          edit_tmp_value:msg
+        })
+      }else{
+        this.setData({
+          edit_tmp_value:e.currentTarget.dataset.value
+        })
+      }
       this.setData({
         show_edit_Modal:true,
         edit_tmp_id:e.currentTarget.dataset.id,
         edit_tmp_type:e.currentTarget.dataset.type,
-        edit_tmp_value:e.currentTarget.dataset.value,
+        // edit_tmp_value:e.currentTarget.dataset.value,
         edit_tmp_value1:e.currentTarget.dataset.value
       })
     }
@@ -387,7 +402,14 @@ Page({
   ok_edit:function()
   {
     console.log("编号为:"+this.data.edit_tmp_id+"的"+this.data.edit_tmp_type+"从"+this.data.edit_tmp_value+"改为"+this.data.edit_tmp_value1)
-    var info = this.data.edit_tmp_id+','+this.data.edit_tmp_type+','+this.data.edit_tmp_value1;
+    var info;
+    if(this.data.edit_tmp_type=="库中"|this.data.edit_tmp_type=="可出库"){
+      if(this.data.edit_tmp_value1=="是") info = this.data.edit_tmp_id+','+this.data.edit_tmp_type+','+"1";
+        else info = this.data.edit_tmp_id+','+this.data.edit_tmp_type+','+"0";
+    }else
+      info = this.data.edit_tmp_id+','+this.data.edit_tmp_type+','+this.data.edit_tmp_value1;
+    
+    
     console.log('this is info',info)
     upload(info,this);
     this.setData({

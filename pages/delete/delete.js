@@ -1,4 +1,57 @@
+function upload_maps(message,that) {
+  var send_message = message
+  // console.log(send_message)
+  wx.request({
+    url: 'http://120.78.209.24/maps',
+    data: {
+      upload:JSON.stringify(send_message)
+    },
+    method: "POST",
+    header: {
+      'content-type': 'application/x-www-form-urlencoded',
+      'chartset': 'utf-8'
+    },
+    success: function (res) {
+      var List = res.data.split(',');
+      // console.log(List)
+      if(res.data!="商品未入库"&&res.data!="修改成功"&&res.data!="重复编号!"){
+        // var List = res.data.split(',');
+        var newData = [{
+          code: List[0],
+          type: List[1],
+          price: List[2],
+        }];
+        var tmp_show = newData.concat(that.data.show);
+        that.setData({
+          show: tmp_show
+        }) 
+      }
+      wx.showToast({
+        title: res.data,//这里打印出登录成功
+        icon: 'none',
+        duration: 3000
+      });
+    },
+    fail:function(res){
+    }    
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function upload(message,that) {
+  console.log(message)
   var send_message = message[0]+','+message[1]+','+message[2]+','+app.globalData.pos+','+app.globalData.longitude+','+app.globalData.latitude
   wx.request({
     url: 'http://120.78.209.24/delete',
@@ -12,15 +65,18 @@ function upload(message,that) {
     },
     success: function (res) {
       if(res.data=='出库成功'){
-        var newData = [{
-          code: message[0],
-          type: message[1],
-          price: message[2]
-        }];
-        that.data.show = newData.concat(that.data.show);
-        that.setData({
-          show: that.data.show
-        })
+        upload_maps(message[0]+',',that)
+        console.log(message[0])
+
+        // var newData = [{
+        //   code: message[0],
+        //   type: message[1],
+        //   price: message[2]
+        // }];
+        // that.data.show = newData.concat(that.data.show);
+        // that.setData({
+        //   show: that.data.show
+        // })
       }
       wx.showToast({
         title: res.data,//这里打印出登录成功

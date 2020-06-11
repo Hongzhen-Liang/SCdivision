@@ -138,7 +138,7 @@ Page({
             {
               if(res.confirm)
               {
-                var data_length = that.data.show.length
+                // var data_length = that.data.show.length
                 wx.showToast({
                   title: '已录入等待服务器响应',
                   icon:'success',

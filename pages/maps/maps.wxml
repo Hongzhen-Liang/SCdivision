@@ -90,11 +90,13 @@
       </view>
       <view class="tr bg-g">
         <view class="th big">库中</view>
-        <view class="td" bindtap="change_td" data-type="库中" data-value="{{item.status}}" data-id="{{item.id}}">{{item.status}}</view>
+        <view class="td" bindtap="change_td" data-type="库中" data-value="{{item.status}}" data-id="{{item.id}}" wx:if="{{item.status=='1'}}">是</view>
+        <view class="td" bindtap="change_td" data-type="库中" data-value="{{item.status}}" data-id="{{item.id}}" wx:if="{{item.status=='0'}}">否</view>
       </view>
       <view class="tr">
         <view class="th big">可出库</view>
-        <view class="td" bindtap="change_td" data-type="可出库" data-value="{{item.agree_modify}}" data-id="{{item.id}}">{{item.agree_modify}}</view>
+        <view class="td" bindtap="change_td" data-type="可出库" data-value="{{item.agree_modify}}" data-id="{{item.id}}" wx:if="{{item.agree_modify=='1'}}">是</view>
+        <view class="td" bindtap="change_td" data-type="可出库" data-value="{{item.agree_modify}}" data-id="{{item.id}}" wx:if="{{item.agree_modify=='0'}}">否</view>
       </view>
       <view class="tr bg-g">
         <view class="th big" bindtap="locate_maps" data-lnglat="{{item.lng_lat}}">经纬度</view>
