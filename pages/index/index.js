@@ -49,7 +49,6 @@ function upload_name_select(message,that) {
 
 Page({
   data: {
-
     isHide: false,
     motto: 'This is Position Authority explanation',
     userInfo: {},
@@ -72,14 +71,10 @@ Page({
     posIndex:0,
     selectedPosition:'',//申请的职位
     userId:wx.getStorageSync("userId"),
-    name_Input:''//申请真实名字
+    name_Input:'',  //申请真实名字
+    showChangeBtn:false,
   },
   //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
   onLoad: function() {
     var that = this;
 
@@ -300,18 +295,25 @@ Page({
      },
      success(res)
      {
-       var titlem='待审核'
+       var titlem='待审核';
+       var iconm='success';
       if(res.data!='yes'){
         titlem=res.data;
-      } 
+      }
+      if(titlem=="不能更改管理员权限") 
+      {
+        iconm='none';
+      }
       wx.showToast({
          title: titlem,
+         icon:iconm,
          duration: 2000,
        })
      },
      fail(res){
       wx.showToast({
-        title:'操作失败',
+        title:'操作失败!',
+        icon: 'none',
         duration:2000,
       })
      }
@@ -394,6 +396,10 @@ Page({
         fail: function(res) {},
         complete: function(res) {},
       })
+      that.setData({
+        noAuthority:false,
+        isEmployee:false,
+      })
     }
     //'depotManager': '仅允许出库入库',
     //'front': '仅改价格和判定货物能否出货',
@@ -426,5 +432,10 @@ Page({
     }
     // 更改全局变量，告诉服务器(driver、admin)身份是什么
     app.globalData.pos=cpos
+  },
+  bindViewTap: function () {
+    this.setData({
+      showChangeBtn: !this.data.showChangeBtn
+    })
   },
 })

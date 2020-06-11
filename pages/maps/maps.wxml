@@ -32,9 +32,19 @@
     <!-- <label>价格</label> -->
     <input id="goodPrice" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='价格'}}" value="{{edit_tmp_value}}" />
     <!-- <label>库中</label> -->
-    <input id="goodInde" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='库中'}}" value="{{edit_tmp_value}}" />
+    <!-- <input id="goodInde" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='库中'}}" value="{{edit_tmp_value}}" /> -->
+    <radio-group class="radio-group" bindchange="radioChange" wx:if="{{edit_tmp_value=='否'}}">
+      <radio class="radio" wx:for-items="{{radioValue1}}" wx:key="name" value="{{item.value}}" checked="{{item.checked}}">
+        <text>{{item.value}}</text>
+      </radio>
+    </radio-group>
+    <radio-group class="radio-group" bindchange="radioChange" wx:if="{{edit_tmp_value=='是'}}">
+      <radio class="radio" wx:for-items="{{radioValue2}}" wx:key="name" value="{{item.name}}" checked="{{item.checked}}">
+        <text>{{item.value}}</text>
+      </radio>
+    </radio-group>
     <!-- <label>可出库</label> -->
-    <input id="goodOutde" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='可出库'}}" value="{{edit_tmp_value}}" />
+    <!-- <input id="goodOutde" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='可出库'}}" value="{{edit_tmp_value}}" /> -->
     <!--当前位置-->
     <input id="goodlnglat" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='经纬度'}}" value="{{position}}" />
 
@@ -57,6 +67,9 @@
 
 
 <view style="background: rgba(255,255,255,1);position:fixed;width:100%;height:5rem;border-bottom:solid rgb(50, 144, 207);">
+  <view id="clear" bindtap="clearQueue" class="clearButton">
+    <image src="../../images/icons/clear.png"></image>
+  </view>
   <button bindtap="check" class="scanBtn" >查询信息</button>
   <button class="inputButton" bindtap="inputButton" style="width:6rem;">手动输入</button>
 </view>
@@ -100,7 +113,7 @@
       </view>
       <view class="tr bg-g">
         <view class="th big" bindtap="locate_maps" data-lnglat="{{item.lng_lat}}">经纬度</view>
-        <view class="td" bindtap="change_td" data-type="经纬度" data-value="{{item.lng_lat}}" data-id="{{item.id}}">{{item.lng_lat}}</view>
+        <view class="td small" bindtap="change_td" data-type="经纬度" data-value="{{item.lng_lat}}" data-id="{{item.id}}">{{item.lng_lat}}</view>
       </view>
     </view>
     <!-- <view class="tr bg-g">

@@ -77,7 +77,14 @@ Page({
     edit_tmp_id:"",//当前的编号
     edit_tmp_type:"",//当前编辑状态
     edit_tmp_value:"",
-    
+    radioValue1:[
+      {'name':'0','value':'否','checked':'true'},
+      {'name':'1','value':'是'}
+    ],
+    radioValue2: [
+      { 'name': '0', 'value': '否' },
+      { 'name': '1', 'value': '是', 'checked': 'true' }
+    ]
   },
 
   /**
@@ -349,6 +356,9 @@ Page({
         });
         var List;
         var message=res.data;
+        that.setData({
+          show:[]
+        })
         // console.log(res.data.length);
         for(var i=0;i<res.data.length;i=i+1){
           // console.log(message[i]);
@@ -398,6 +408,11 @@ Page({
     })
   },
 
+  clearQueue: function () {
+    this.setData({
+      show: []
+    })
+  },
 
   ok_edit:function()
   {
@@ -414,6 +429,12 @@ Page({
     upload(info,this);
     this.setData({
       show_edit_Modal: false
+    })
+  },
+  radioChange: function (e) {
+    console.log(e.detail.value)
+    this.setData({
+      edit_tmp_value1 : e.detail.value
     })
   }
 

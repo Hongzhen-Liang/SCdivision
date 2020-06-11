@@ -133,3 +133,12 @@
    justify-content: center;
    justify-items: center;
  }
+.clearButton{
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;  
+}
+.clearButton image{
+  width: 24px;
+  height: 24px;
+}

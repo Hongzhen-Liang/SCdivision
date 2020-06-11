@@ -17,7 +17,12 @@
     <image src='../../images/icons/cancel.png'></image>
   </view>
 </view>
+
+
 <view style="background: rgba(255,255,255,1);position:fixed;width:100%;height:5rem">
+  <view id="clear" bindtap="clearQueue" class="clearButton">
+    <image src="../../images/icons/clear.png"></image>
+  </view>
   <button bindtap="check"  class="scanBtn">扫码入库</button>
   <button class="inputButton" style="width:6rem;" bindtap="inputButton">手动输入</button>
 </view>

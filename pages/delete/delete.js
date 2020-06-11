@@ -264,7 +264,11 @@ Page({
       goodPrice: e.detail.value
     })
   },
-
+  clearQueue:function(){
+    this.setData({
+      show:[]
+    })
+  },
   ok: function () {
     var info = this.data.goodId + "," + this.data.goodType + "," + this.data.goodPrice;
     var message = info.split(",");

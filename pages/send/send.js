@@ -202,6 +202,12 @@ Page({
     })
   },
 
+  clearQueue: function () {
+    this.setData({
+      show: []
+    })
+  },
+
   priceInput: function (e) {
     this.setData({
       goodPrice: e.detail.value
