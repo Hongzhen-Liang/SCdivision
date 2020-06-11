@@ -22,7 +22,7 @@ function upload(message,that) {
       }
       console.log(List)
 
-      if(res.data!="商品未入库"&&res.data!="修改成功"){
+      if(res.data!="商品未入库"&&res.data!="修改成功"&&res.data!="重复编号!"){
         // var List = res.data.split(',');
         var newData = [{
           id: List[0],
@@ -314,6 +314,11 @@ Page({
 
   showAll:function()
   {
+    wx.showToast({
+      title: '等待服务器响应',//这里打印出登录成功
+      icon: 'none',
+      duration: 2000
+    });
     var that=this;
     wx.request({
       url: 'http://120.78.209.24/maps_all',
