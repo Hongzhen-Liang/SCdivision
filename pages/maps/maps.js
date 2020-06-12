@@ -265,6 +265,11 @@ Page({
         // edit_tmp_value:e.currentTarget.dataset.value,
         edit_tmp_value1:e.currentTarget.dataset.value
       })
+      if(e.currentTarget.dataset.type=="经纬度"){
+        this.setData({
+          edit_tmp_value1:this.data.position
+        })
+      }
     }
     if(app.globalData.pos=="front"){
       if(e.currentTarget.dataset.type=="价格"|e.currentTarget.dataset.type=="可出库"){
