@@ -87,7 +87,7 @@
     <view style="margin-top:20rpx;">
       <view class="tr bg-g">
         <view class="th big">编号</view>
-        <view class="td" bindtap="change_td" data-type="编号" data-value="{{item.id}}" data-id="{{item.id}}">{{item.id}}</view>
+        <view class="td"  data-value="{{item.id}}" data-id="{{item.id}}">{{item.id}}</view>
       </view>
       <view class="tr">
         <view class="th big">类型</view>
