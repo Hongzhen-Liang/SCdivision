@@ -153,7 +153,7 @@ Page({
                       'chartset': 'utf-8'
                     },
                     success(res) {
-                      // console.log(res.data);
+                      console.log(res.data);
                       var mess=res.data.split(',');
                       var name = mess[0]
                       var pos = mess[1]
