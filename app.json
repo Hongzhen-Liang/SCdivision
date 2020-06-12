@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/wxLogin/wxLogin",
     "pages/index/index",
     "pages/send/send",
     "pages/logs/logs",
