@@ -40,6 +40,7 @@ Page({
     })
   },
   deleteFromQueue:function(e){
+    var that=this;
     // console.log(e.currentTarget.dataset.wxid);
     wx.request({
       url: 'http://120.78.209.24/authority_admitted',
@@ -55,15 +56,32 @@ Page({
       success: function (res) {
         wx.showToast({
           title: res.data,//这里打印出登录成功
-          icon: 'none',
+          icon: 'success',
           duration: 3000
         });
+        var queue = that.data.authorityQueue;
+        for(var i=0;i<queue.length;i++)
+        {
+          if (queue[i].wxid == e.currentTarget.dataset.wxid)
+          {
+            queue.splice(i,1);
+          }
+        }
+        that.setData({
+          authorityQueue:queue
+        })
       },
       fail:function(res){
+        wx.showToast({
+          title: '失败！',
+          icon:'none',
+          duration:2000
+        })
       }    
     })
   },
   authorize:function(e){
+    var that = this;
     wx.request({
       url: 'http://120.78.209.24/authority_admitted',
       data: {
@@ -81,6 +99,16 @@ Page({
           icon: 'none',
           duration: 3000
         });
+        console.log(e);
+        var queue = that.data.authorityQueue;
+        for (var i = 0; i < queue.length; i++) {
+          if (queue[i].wxid == e.currentTarget.dataset.wxid) {
+            queue.splice(i, 1);
+          }
+        }
+        that.setData({
+          authorityQueue: queue
+        })
       },
       fail:function(res){
       }    

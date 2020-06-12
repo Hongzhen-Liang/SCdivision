@@ -76,7 +76,14 @@ Page({
   },
   //事件处理函数
   onLoad: function() {
+
     var that = this;
+    wx.hideTabBar({
+      aniamtion: true,
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
 
     wx.getLocation({  //获取经纬度坐标
       type: 'gcj02',
@@ -158,6 +165,12 @@ Page({
                       //只要登陆一次admin就有更改自身权限的能力
                       if(pos=='admin')
                       {
+                        wx.showTabBar({
+                          aniamtion: true,
+                          success: function(res) {},
+                          fail: function(res) {},
+                          complete: function(res) {},
+                        })
                         app.globalData.isActuallyAdmin=true;
                         that.setData({
                           isActuallyAdmin:true,
@@ -170,6 +183,12 @@ Page({
                       //'default': '无权限！'
                       else if (pos == 'front' || pos == 'depotManager' || pos == 'driver')
                       {
+                        wx.showTabBar({
+                          aniamtion: true,
+                          success: function(res) {},
+                          fail: function(res) {},
+                          complete: function(res) {},
+                        })
                         that.setData({
                           isEmployee:true,
                           noAuthority:false,
@@ -319,7 +338,7 @@ Page({
      }
    })
    this.setData({
-     requestingAuthority:false
+     requestAuthority:false
    })
   },
   bindGetUserInfo: function(e) {
