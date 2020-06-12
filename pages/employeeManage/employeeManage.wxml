@@ -2,8 +2,8 @@
 <view class="head">
   <text>用户管理</text>
 </view>
-<view wx:for="{{employeeInfo}}" style="100%" >
-  <view class="employeeInfo" data-detail="{{item}}" bindtap="requestFixInfo" >
+<view wx:for="{{employeeInfo}}" style="100%">
+  <view class="employeeInfo" data-detail="{{item}}" bindtap="requestFixInfo">
     <view style="width:36px;height:32px">
       <image src="../../images/touxiang/{{item.position}}.png" style="width:32px;height:32px;"></image>
     </view>
@@ -23,12 +23,12 @@
   </view>
   <view class="block">
     <label>微信编号</label>
-    <input id="userId" type="text" disabled="true" value="{{userId}}"/>
+    <input id="userId" type="text" disabled="true" value="{{userId}}" />
     <label>真实姓名</label>
-    <input id="userName" type="text" bindinput="nameInput" value="{{userName}}"/>
+    <input id="userName" type="text" bindinput="nameInput" value="{{userName}}" />
     <label>当前职位</label>
     <picker bindchange="positionChange" value="{{posIndex}}" range="{{posArray}}">
-      <input id="position" type="text" disabled="true" value="{{userPosition}}"/>
+      <input id="position" type="text" disabled="true" value="{{userPosition}}" />
     </picker>
   </view>
   <button bindtap="ok">确认修改</button>

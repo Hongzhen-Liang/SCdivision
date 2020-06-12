@@ -12,7 +12,7 @@
   margin: 20rpx;
   border-radius: 50%;
   border: solid 2px;
-  border-color: #13227a
+  border-color: #13227a;
 }
 
 .userinfo-nickname {
@@ -26,126 +26,136 @@
 }
 
 .header {
-    margin: 90rpx 0 90rpx 50rpx;
-    border-bottom: 1px solid #ccc;
-    text-align: center;
-    width: 650rpx;
-    height: 300rpx;
-    line-height: 450rpx;
+  margin: 90rpx 0 90rpx 50rpx;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  width: 650rpx;
+  height: 300rpx;
+  line-height: 450rpx;
 }
- 
+
 .header image {
-    width: 200rpx;
-    height: 200rpx;
+  width: 200rpx;
+  height: 200rpx;
 }
- 
+
 .content {
-    margin-left: 50rpx;
-    margin-bottom: 90rpx;
+  margin-left: 50rpx;
+  margin-bottom: 90rpx;
 }
- 
+
 .content text {
-    display: block;
-    color: #9d9d9d;
-    margin-top: 40rpx;
+  display: block;
+  color: #9d9d9d;
+  margin-top: 40rpx;
 }
- 
+
 .bottom {
-    border-radius: 80rpx;
-    margin: 70rpx 50rpx;
-    font-size: 100rpx;
+  border-radius: 80rpx;
+  margin: 70rpx 50rpx;
+  font-size: 100rpx;
 }
-.button{
-  font-size:10px; 
+
+.button {
+  font-size: 10px;
 }
 
 /* 没必要特设样式，否则会覆盖姓名文字 */
-.buttonBlock{
+
+.buttonBlock {
   width: 40%;
   position: absolute;
-  left:0;
-  top:0;
+  left: 0;
+  top: 0;
 }
 
- .mask{
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: #000;
-    z-index: 9000;
-    opacity: 0.7;
+.mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  z-index: 9000;
+  opacity: 0.7;
 }
-.modalDlg{
-    width: 550rpx;
-    height: 520rpx;
-    position: fixed;
-    top: 25%;
-    z-index: 9999;
-    margin: 0rpx 100rpx 185rpx 100rpx;
-    background-color: #fff;
-    border-radius: 36rpx;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+.modalDlg {
+  width: 550rpx;
+  height: 520rpx;
+  position: fixed;
+  top: 25%;
+  z-index: 9999;
+  margin: 0rpx 100rpx 185rpx 100rpx;
+  background-color: #fff;
+  border-radius: 36rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.block{
+
+.block {
   position: absolute;
-  width: 450rpx; 
+  width: 450rpx;
   height: 460rpx;
   top: 60rpx;
 }
-.modalDlg label{
+
+.modalDlg label {
   width: 20%;
-  color:#13227a;
+  color: #13227a;
   align-content: center;
 }
-.modalDlg input{
-  width:95%;
-  border-bottom:solid #13227a;
+
+.modalDlg input {
+  width: 95%;
+  border-bottom: solid #13227a;
   padding-top: 5rpx;
   align-content: center;
 }
-.modalDlg button{
+
+.modalDlg button {
   position: absolute;
   bottom: 2rpx;
-  color: #13227a
-}
-.img_cancel{
-    width: 130rpx;
-    height: 130rpx;
-    background: white;
-    border-radius:50%;
-    border:1px solid #13227a;
-    margin: 0rpx auto;
-    position: absolute;
-    top: -65rpx;
-    margin-bottom: 30rpx;
+  color: #13227a;
 }
 
-.img_cancel image{
-    width: 100rpx;
-    height: 100rpx;
-    padding-top:15rpx;
-    padding-left:15rpx;
-    margin: 0rpx auto;
+.img_cancel {
+  width: 130rpx;
+  height: 130rpx;
+  background: white;
+  border-radius: 50%;
+  border: 1px solid #13227a;
+  margin: 0rpx auto;
+  position: absolute;
+  top: -65rpx;
+  margin-bottom: 30rpx;
 }
-.shutalert{
-    width: 110rpx;
-    margin: 0rpx auto
+
+.img_cancel image {
+  width: 100rpx;
+  height: 100rpx;
+  padding-top: 15rpx;
+  padding-left: 15rpx;
+  margin: 0rpx auto;
 }
-.shutalert image{
-    width: 100rpx;
-    height: 100rpx;
-    position: absolute;
-    bottom: -120rpx;
+
+.shutalert {
+  width: 110rpx;
+  margin: 0rpx auto;
 }
-.authorityBtn{
-  margin-top:0.5rem;
+
+.shutalert image {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  bottom: -120rpx;
+}
+
+.authorityBtn {
+  margin-top: 0.5rem;
   border-radius: 1rem;
   background: rgb(31, 91, 131);
   color: white;
-  font-size:0.9rem;
+  font-size: 0.9rem;
 }
-

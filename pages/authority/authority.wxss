@@ -1,14 +1,17 @@
 /* pages/authority/authority.wxss */
-.title{
+
+.title {
   width: 100%;
   text-align: center;
   color: #13227a;
 }
-.authorityBlock{
+
+.authorityBlock {
   width: 100%;
   height: 100%;
 }
-.buttonView{
+
+.buttonView {
   margin-top: 0.5rem;
   display: flex;
   width: 100%;
@@ -17,27 +20,31 @@
   left: 0;
   align-items: center;
 }
-.buttonView button{
+
+.buttonView button {
   background: #13227a;
-  color: #FFF;
+  color: #fff;
   width: 90%;
   border-radius: 1rem;
-  font-size:0.9rem;
+  font-size: 0.9rem;
   justify-content: center;
 }
-.divide{
+
+.divide {
   margin-top: 0.5rem;
   margin-bottom: 0.3rem;
   width: 100%;
   background: #c1cbff;
   height: 0.1rem;
 }
-.clearButton{
+
+.clearButton {
   position: absolute;
   top: 0;
-  right: 0.5rem;  
+  right: 0.5rem;
 }
-.clearButton image{
+
+.clearButton image {
   width: 20px;
   height: 20px;
 }

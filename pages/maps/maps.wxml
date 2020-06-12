@@ -70,7 +70,7 @@
   <view id="clear" bindtap="clearQueue" class="clearButton">
     <image src="../../images/icons/clear.png"></image>
   </view>
-  <button bindtap="check" class="scanBtn" >查询信息</button>
+  <button bindtap="check" class="scanBtn">查询信息</button>
   <button class="inputButton" bindtap="inputButton" style="width:6rem;">手动输入</button>
 </view>
 <!-- <view class="tr bg-w" style="position:fixed;margin-top:3rem">
@@ -87,7 +87,7 @@
     <view style="margin-top:20rpx;">
       <view class="tr bg-g">
         <view class="th big">编号</view>
-        <view class="td"  data-value="{{item.id}}" data-id="{{item.id}}">{{item.id}}</view>
+        <view class="td" data-value="{{item.id}}" data-id="{{item.id}}">{{item.id}}</view>
       </view>
       <view class="tr">
         <view class="th big">类型</view>

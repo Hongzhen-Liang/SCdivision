@@ -8,20 +8,23 @@
 
 <block wx:for="{{authorityQueue}}" wx:key="{[wxid]}" class="authorityBlock">
   <view>
-    <label>微信编号：</label><text style="color:#13227a">{{item.wxid}}</text>
+    <label>微信编号：</label>
+    <text style="color:#13227a">{{item.wxid}}</text>
   </view>
   <view>
-    <label>真实姓名：</label><text style="color:#13227a">{{item.realName}}</text>
+    <label>真实姓名：</label>
+    <text style="color:#13227a">{{item.realName}}</text>
   </view>
   <view>
-    <label>申请权限：</label><text style="color:#13227a">{{item.requestedPosition}}</text>
+    <label>申请权限：</label>
+    <text style="color:#13227a">{{item.requestedPosition}}</text>
   </view>
   <view class="buttonView">
     <view style="width:50%;">
       <button id="ok" bindtap="authorize" data-wxid="{{item.wxid}}" style="width:90%">拒绝</button>
     </view>
     <view style="width:50%;">
-      <button id="no" bindtap="deleteFromQueue"style="width:90%;background: #5160b6;" data-wxid="{{item.wxid}}">批准</button>
+      <button id="no" bindtap="deleteFromQueue" style="width:90%;background: #5160b6;" data-wxid="{{item.wxid}}">批准</button>
     </view>
   </view>
   <view class="divide"></view>

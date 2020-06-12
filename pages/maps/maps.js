@@ -425,37 +425,32 @@ Page({
       info = this.data.edit_tmp_id + ',' + this.data.edit_tmp_type + ',' + this.data.edit_tmp_value1;
     console.log('this is info', info)
     upload(info, this);
-    var infoArray=this.data.show;
+    var infoArray = this.data.show;
     console.log(this.data.edit_tmp_type)
-    for(var i=0;i<infoArray.length;i++)
-    {
-      if (infoArray[i].id==this.data.edit_tmp_id)
-      {
+    for (var i = 0; i < infoArray.length; i++) {
+      if (infoArray[i].id == this.data.edit_tmp_id) {
         if (this.data.edit_tmp_type == "类型")
           infoArray[i].type = this.data.edit_tmp_value1;
         else if (this.data.edit_tmp_type == "价格")
           infoArray[i].price = this.data.edit_tmp_value1;
-        else if (this.data.edit_tmp_type == "库中")
-        {
-          if (this.data.edit_tmp_value1=="是")
-            infoArray[i].status=1;
+        else if (this.data.edit_tmp_type == "库中") {
+          if (this.data.edit_tmp_value1 == "是")
+            infoArray[i].status = 1;
           else
-            infoArray[i].status=0;
-        }
-        else if (this.data.edit_tmp_type == "可出库"){
+            infoArray[i].status = 0;
+        } else if (this.data.edit_tmp_type == "可出库") {
           if (this.data.edit_tmp_value1 == "是")
             infoArray[i].agree_modify = 1;
           else
             infoArray[i].agree_modify = 0;
-        }
-        else if (this.data.edit_tmp_type == "经纬度")
+        } else if (this.data.edit_tmp_type == "经纬度")
           infoArray[i].lng_lat = this.data.edit_tmp_value1;
         break;
       }
     }
     this.setData({
       show_edit_Modal: false,
-      show:infoArray
+      show: infoArray
     })
   },
   radioChange: function(e) {

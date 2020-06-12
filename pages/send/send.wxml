@@ -6,11 +6,11 @@
   </view>
   <view class="block">
     <label>编号</label>
-    <input id="goodId" type="text" bindinput="idInput"/>
+    <input id="goodId" type="text" bindinput="idInput" />
     <label>类型</label>
-    <input id="goodType" type="text" bindinput="typeInput"/>
+    <input id="goodType" type="text" bindinput="typeInput" />
     <label>价格</label>
-    <input id="goodPrice" type="digit" bindinput="priceInput"/>
+    <input id="goodPrice" type="digit" bindinput="priceInput" />
   </view>
   <button bindtap="ok">确定</button>
   <view class='shutalert' bindtap="back">
@@ -23,15 +23,15 @@
   <view id="clear" bindtap="clearQueue" class="clearButton">
     <image src="../../images/icons/clear.png"></image>
   </view>
-  <button bindtap="check"  class="scanBtn">扫码入库</button>
+  <button bindtap="check" class="scanBtn">扫码入库</button>
   <button class="inputButton" style="width:6rem;" bindtap="inputButton">手动输入</button>
 </view>
 <view class="tr bg-w" style="position:fixed;margin-top:5rem">
-    <view class="th big">编号</view>
-    <view class="th">类型</view>
-    <view class="th ">价格</view>
+  <view class="th big">编号</view>
+  <view class="th">类型</view>
+  <view class="th ">价格</view>
 </view>
-<scorll-view class="table"scorll-y="true">
+<scorll-view class="table" scorll-y="true">
   <block wx:for="{{show}}" wx:key="{[code]}">
     <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
       <view class="td big">{{item.code}}</view>

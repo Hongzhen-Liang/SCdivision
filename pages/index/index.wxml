@@ -23,16 +23,16 @@
     <view class="userinfo">
       <block>
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{imageUri}}"></image>
-        <text class="userinfo-nickname" >{{realName}}</text>
+        <text class="userinfo-nickname">{{realName}}</text>
       </block>
     </view>
     <view wx:if="{{isActuallyAdmin}}" class="buttonBlock">
       <view wx:if="{{showChangeBtn}}">
-      <button bindtap="changePosition" id="admin" class="button" style="width:100%;margin-left:0;">admin</button>
-      <button bindtap="changePosition" id="depotManager"class="button" style="width:100%;margin-left:0;">depotManager</button>
-      <button bindtap="changePosition" id="front" class="button" style="width:100%;margin-left:0;">front</button>
-      <button bindtap="changePosition" id="driver" class="button" style="width:100%;margin-left:0;">driver</button>
-      <button bindtap="changePosition" id="default" class="button" style="width:100%;margin-left:0;">default</button>
+        <button bindtap="changePosition" id="admin" class="button" style="width:100%;margin-left:0;">admin</button>
+        <button bindtap="changePosition" id="depotManager" class="button" style="width:100%;margin-left:0;">depotManager</button>
+        <button bindtap="changePosition" id="front" class="button" style="width:100%;margin-left:0;">front</button>
+        <button bindtap="changePosition" id="driver" class="button" style="width:100%;margin-left:0;">driver</button>
+        <button bindtap="changePosition" id="default" class="button" style="width:100%;margin-left:0;">default</button>
       </view>
     </view>
     <view class="usermotto">
@@ -40,13 +40,13 @@
     </view>
     <view>
       <text>当前经纬度:{{longitude}},{{latitude}}</text>
-    </view> 
+    </view>
   </view>
   <view>
     <!-- 当审批队列里有待审批的权限申请时要加‘ #13227a ’色的标记 -->
     <view wx:if="{{isActuallyAdmin}}">
       <button bindtap="navigateToAuthorityPage" class="authorityBtn">权限审批</button>
-      <button bindtap="navigateToEmployeeManagePage"  class="authorityBtn">员工管理</button>
+      <button bindtap="navigateToEmployeeManagePage" class="authorityBtn">员工管理</button>
     </view>
     <!-- default用户申请权限进入审批队列 -->
     <button wx:if="{{noAuthority}}" bindtap="requestingAuthority" class="authorityBtn">权限申请</button>
@@ -61,12 +61,12 @@
   </view>
   <view class="block">
     <label>微信编号</label>
-    <input id="userId" type="text" disabled="true" value="{{userId}}"/>
+    <input id="userId" type="text" disabled="true" value="{{userId}}" />
     <label>真实姓名</label>
-    <input id="userName" type="text" bindinput="nameInput"/>
+    <input id="userName" type="text" bindinput="nameInput" />
     <label>申请职位</label>
     <picker bindchange="positionChange" value="{{posIndex}}" range="{{posArray}}">
-      <input id="position" type="text" disabled="true" value="{{selectedPosition}}"/>
+      <input id="position" type="text" disabled="true" value="{{selectedPosition}}" />
     </picker>
   </view>
   <button bindtap="ok">确认申请</button>

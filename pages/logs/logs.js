@@ -5,7 +5,7 @@ Page({
   data: {
     logs: []
   },
-  onLoad: function () {
+  onLoad: function() {
     wx.checkSession({
       success: function(res) {},
       fail: function(res) {

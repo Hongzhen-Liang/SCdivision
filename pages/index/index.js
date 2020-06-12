@@ -2,21 +2,21 @@
 //获取应用实例
 const app = getApp()
 
-function upload_name_select(message,that) {
+function upload_name_select(message, that) {
   var send_message = message
   // console.log(send_message)
   wx.request({
     url: 'http://120.78.209.24/maps',
     data: {
-      upload:JSON.stringify(send_message)
+      upload: JSON.stringify(send_message)
     },
     method: "POST",
     header: {
       'content-type': 'application/x-www-form-urlencoded',
       'chartset': 'utf-8'
     },
-    success: function (res) {
-      if(res.data!="商品未入库"&&res.data!="修改成功"){
+    success: function(res) {
+      if (res.data != "商品未入库" && res.data != "修改成功") {
         var List = res.data.split(',');
         var newData = [{
           id: List[0],
@@ -30,16 +30,15 @@ function upload_name_select(message,that) {
         that.data.show = newData.concat(that.data.show);
         that.setData({
           show: that.data.show
-        }) 
+        })
       }
       wx.showToast({
-        title: res.data,//这里打印出登录成功
+        title: res.data, //这里打印出登录成功
         icon: 'none',
         duration: 3000
       });
     },
-    fail:function(res){
-    }    
+    fail: function(res) {}
   })
 }
 
@@ -61,18 +60,18 @@ Page({
       'front': '仅改价格和判定货物能否出货',
       'admin': '无约束',
       'driver': '仅更改货物位置信息',
-      'default':'无权限！'
+      'default': '无权限！'
     },
-    isActuallyAdmin:app.globalData.isActuallyAdmin,//每次刷新都校验全局数据
-    isEmployee:false,
-    noAuthority:false,
-    requestAuthority:false,
-    posArray: ['仓库管理员','前台', '司机', '管理员'],
-    posIndex:0,
-    selectedPosition:'',//申请的职位
-    userId:wx.getStorageSync("userId"),
-    name_Input:'',  //申请真实名字
-    showChangeBtn:false,
+    isActuallyAdmin: app.globalData.isActuallyAdmin, //每次刷新都校验全局数据
+    isEmployee: false,
+    noAuthority: false,
+    requestAuthority: false,
+    posArray: ['仓库管理员', '前台', '司机', '管理员'],
+    posIndex: 0,
+    selectedPosition: '', //申请的职位
+    userId: wx.getStorageSync("userId"),
+    name_Input: '', //申请真实名字
+    showChangeBtn: false,
   },
   //事件处理函数
   onLoad: function() {
@@ -80,26 +79,26 @@ Page({
     var that = this;
     wx.hideTabBar({
       aniamtion: true,
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
     })
 
-    wx.getLocation({  //获取经纬度坐标
+    wx.getLocation({ //获取经纬度坐标
       type: 'gcj02',
       success(res) {
         const latitude = res.latitude
         const longitude = res.longitude
         that.setData({
-          latitude:res.latitude,
-          longitude:res.longitude
+          latitude: res.latitude,
+          longitude: res.longitude
         })
-        app.globalData.latitude=latitude //全局变量
-        app.globalData.longitude=longitude
+        app.globalData.latitude = latitude //全局变量
+        app.globalData.longitude = longitude
         // console.log(latitude,longitude)
       }
     })
-    
+
 
     wx.getSetting({
       success: function(res) {
@@ -133,7 +132,7 @@ Page({
                         wx.setStorageSync('userId', res.data.openid)
                       } catch (e) {
                         wx.showModal({
-                          title:'发生了意外的错误'
+                          title: '发生了意外的错误'
                         })
                       }
                       console.log("用户的openid:" + wx.getStorageSync('userId'));
@@ -154,7 +153,7 @@ Page({
                     },
                     success(res) {
                       console.log(res.data);
-                      var mess=res.data.split(',');
+                      var mess = res.data.split(',');
                       var name = mess[0]
                       var pos = mess[1]
                       // console.log(pos)
@@ -163,17 +162,16 @@ Page({
                       app.globalData.name = name
                       wx.setStorageSync("position", pos);
                       //只要登陆一次admin就有更改自身权限的能力
-                      if(pos=='admin')
-                      {
+                      if (pos == 'admin') {
                         wx.showTabBar({
                           aniamtion: true,
                           success: function(res) {},
                           fail: function(res) {},
                           complete: function(res) {},
                         })
-                        app.globalData.isActuallyAdmin=true;
+                        app.globalData.isActuallyAdmin = true;
                         that.setData({
-                          isActuallyAdmin:true,
+                          isActuallyAdmin: true,
                         })
                       }
                       //'depotManager': '仅允许出库入库',
@@ -181,8 +179,7 @@ Page({
                       //'admin': '无约束',
                       //'driver': '仅更改货物位置信息',
                       //'default': '无权限！'
-                      else if (pos == 'front' || pos == 'depotManager' || pos == 'driver')
-                      {
+                      else if (pos == 'front' || pos == 'depotManager' || pos == 'driver') {
                         wx.showTabBar({
                           aniamtion: true,
                           success: function(res) {},
@@ -190,15 +187,13 @@ Page({
                           complete: function(res) {},
                         })
                         that.setData({
-                          isEmployee:true,
-                          noAuthority:false,
+                          isEmployee: true,
+                          noAuthority: false,
                         })
-                      }
-                      else
-                      {
+                      } else {
                         that.setData({
-                          isEmployee:false,
-                          noAuthority:true,
+                          isEmployee: false,
+                          noAuthority: true,
                         })
                       }
                       that.setData({
@@ -237,7 +232,7 @@ Page({
     });
   },
   //授权页面跳转
-  navigateToAuthorityPage:function(){
+  navigateToAuthorityPage: function() {
     wx.navigateTo({
       url: '../authority/authority',
       success: function(res) {},
@@ -245,33 +240,33 @@ Page({
       complete: function(res) {},
     })
   },
-  navigateToEmployeeManagePage:function(){
+  navigateToEmployeeManagePage: function() {
     wx.navigateTo({
       url: '../employeeManage/employeeManage',
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
   //显示权限申请信息输入窗口
-  requestingAuthority:function(){
+  requestingAuthority: function() {
     this.setData({
-      requestAuthority:true
+      requestAuthority: true
     })
   },
-  nameInput:function(e){
+  nameInput: function(e) {
     this.setData({
-      name_Input:e.detail.value
+      name_Input: e.detail.value
     })
   },
 
   //确认函数
-  back:function(){
+  back: function() {
     this.setData({
-      requestAuthority:false
+      requestAuthority: false
     })
   },
-  positionChange: function (e) {
+  positionChange: function(e) {
     //两个赋值不能放一起会引起异步操作带来的bug
     this.setData({
       posIndex: e.detail.value,
@@ -280,66 +275,64 @@ Page({
       selectedPosition: this.data.posArray[this.data.posIndex]
     })
   },
-  ok:function(){
-    var message=wx.getStorageSync('userId').toString()+','+this.data.name_Input+','+this.data.selectedPosition;
+  ok: function() {
+    var message = wx.getStorageSync('userId').toString() + ',' + this.data.name_Input + ',' + this.data.selectedPosition;
     console.log(message)
-    var select_pos='';
+    var select_pos = '';
     //upload_name_select(message,this);
-    switch(this.data.selectedPosition){
+    switch (this.data.selectedPosition) {
       case '仓库管理员':
-        select_pos='depotManager';
+        select_pos = 'depotManager';
         break;
       case '前台':
-        select_pos='front';
+        select_pos = 'front';
         break;
       case '司机':
-        select_pos='driver';
+        select_pos = 'driver';
         break;
       case '管理员':
-        select_pos='admin';
-        break;   
+        select_pos = 'admin';
+        break;
     }
 
-   wx.request({//需要完善插入操作，不会写，注意职位输入项是中文要匹对成相应的英文！
-     url: 'http://120.78.209.24/authorizeQueue',
-     data: {
-       wxid: JSON.stringify(wx.getStorageSync('userId').toString()), //匹配码
-       position: JSON.stringify(select_pos),
-       realName: JSON.stringify(this.data.name_Input)
-     },
-     method: 'POST',
-     header: {
-       'content-type': 'application/x-www-form-urlencoded',
-       'chartset': 'utf-8'
-     },
-     success(res)
-     {
-       var titlem='待审核';
-       var iconm='success';
-      if(res.data!='yes'){
-        titlem=res.data;
+    wx.request({ //需要完善插入操作，不会写，注意职位输入项是中文要匹对成相应的英文！
+      url: 'http://120.78.209.24/authorizeQueue',
+      data: {
+        wxid: JSON.stringify(wx.getStorageSync('userId').toString()), //匹配码
+        position: JSON.stringify(select_pos),
+        realName: JSON.stringify(this.data.name_Input)
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8'
+      },
+      success(res) {
+        var titlem = '待审核';
+        var iconm = 'success';
+        if (res.data != 'yes') {
+          titlem = res.data;
+        }
+        if (titlem == "不能更改管理员权限") {
+          iconm = 'none';
+        }
+        wx.showToast({
+          title: titlem,
+          icon: iconm,
+          duration: 2000,
+        })
+      },
+      fail(res) {
+        wx.showToast({
+          title: '操作失败!',
+          icon: 'none',
+          duration: 2000,
+        })
       }
-      if(titlem=="不能更改管理员权限") 
-      {
-        iconm='none';
-      }
-      wx.showToast({
-         title: titlem,
-         icon:iconm,
-         duration: 2000,
-       })
-     },
-     fail(res){
-      wx.showToast({
-        title:'操作失败!',
-        icon: 'none',
-        duration:2000,
-      })
-     }
-   })
-   this.setData({
-     requestAuthority:false
-   })
+    })
+    this.setData({
+      requestAuthority: false
+    })
   },
   bindGetUserInfo: function(e) {
     if (e.detail.userInfo) {
@@ -376,8 +369,7 @@ Page({
     }
   },
   //更改权限（职位）
-  changePosition:function(e)
-  {
+  changePosition: function(e) {
     //获取更改的职位： e.currentTarget.id
     console.log(e.currentTarget.id);
     var cpos = e.currentTarget.id;
@@ -416,8 +408,8 @@ Page({
         complete: function(res) {},
       })
       that.setData({
-        noAuthority:false,
-        isEmployee:false,
+        noAuthority: false,
+        isEmployee: false,
       })
     }
     //'depotManager': '仅允许出库入库',
@@ -434,12 +426,11 @@ Page({
       })
       that.setData({
         isEmployee: true,
-        noAuthority:false
+        noAuthority: false
       })
-    }
-    else {
+    } else {
       that.setData({
-        isEmployee:false,
+        isEmployee: false,
         noAuthority: true
       });
       wx.hideTabBar({
@@ -450,9 +441,9 @@ Page({
       })
     }
     // 更改全局变量，告诉服务器(driver、admin)身份是什么
-    app.globalData.pos=cpos
+    app.globalData.pos = cpos
   },
-  bindViewTap: function () {
+  bindViewTap: function() {
     this.setData({
       showChangeBtn: !this.data.showChangeBtn
     })
