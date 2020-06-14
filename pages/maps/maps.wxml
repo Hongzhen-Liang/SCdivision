@@ -33,16 +33,19 @@
     <input id="goodPrice" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='价格'}}" value="{{edit_tmp_value}}" />
     <!-- <label>库中</label> -->
     <!-- <input id="goodInde" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='库中'}}" value="{{edit_tmp_value}}" /> -->
-    <radio-group class="radio-group" bindchange="radioChange" wx:if="{{edit_tmp_value=='否'}}">
-      <radio class="radio" wx:for-items="{{radioValue1}}" wx:key="name" value="{{item.value}}" checked="{{item.checked}}">
-        <text>{{item.value}}</text>
-      </radio>
-    </radio-group>
-    <radio-group class="radio-group" bindchange="radioChange" wx:if="{{edit_tmp_value=='是'}}">
-      <radio class="radio" wx:for-items="{{radioValue2}}" wx:key="name" value="{{item.name}}" checked="{{item.checked}}">
-        <text>{{item.value}}</text>
-      </radio>
-    </radio-group>
+    <view wx:if="{{edit_tmp_type=='库中'||'可出库'}}">
+      <radio-group class="radio-group" bindchange="radioChange" wx:if="{{edit_tmp_value=='否'}}">
+        <radio class="radio" wx:for-items="{{radioValue1}}" wx:key="name" value="{{item.value}}" checked="{{item.checked}}">
+          <text>{{item.value}}</text>
+        </radio>
+      </radio-group>
+      <radio-group class="radio-group" bindchange="radioChange" wx:if="{{edit_tmp_value=='是'}}">
+        <radio class="radio" wx:for-items="{{radioValue2}}" wx:key="name" value="{{item.name}}" checked="{{item.checked}}">
+          <text>{{item.value}}</text>
+        </radio>
+      </radio-group>
+    </view>
+    
     <!-- <label>可出库</label> -->
     <!-- <input id="goodOutde" type="text" bindinput="WhInput" wx:if="{{edit_tmp_type=='可出库'}}" value="{{edit_tmp_value}}" /> -->
     <!--当前位置-->

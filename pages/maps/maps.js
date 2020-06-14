@@ -279,9 +279,21 @@ Page({
           show_edit_Modal: true,
           edit_tmp_id: e.currentTarget.dataset.id,
           edit_tmp_type: e.currentTarget.dataset.type,
-          edit_tmp_value: e.currentTarget.dataset.value,
-          edit_tmp_value1: e.currentTarget.dataset.value
         })
+        if(e.currentTarget.dataset.value=='0')
+        {
+          this.setData({
+            edit_tmp_value: '否',
+            edit_tmp_value: '否'
+          })
+        }
+        else if(e.currentTarget.dataset.value=='1')
+        {
+          this.setData({
+            edit_tmp_value: '是',
+            edit_tmp_value: '是'
+          })
+        }
       }
     }
     if (app.globalData.pos == "driver") {
@@ -304,9 +316,21 @@ Page({
           show_edit_Modal: true,
           edit_tmp_id: e.currentTarget.dataset.id,
           edit_tmp_type: e.currentTarget.dataset.type,
-          edit_tmp_value: e.currentTarget.dataset.value,
-          edit_tmp_value1: e.currentTarget.dataset.value
         })
+        if(e.currentTarget.dataset.value=='0')
+        {
+          this.setData({
+            edit_tmp_value: '否',
+            edit_tmp_value: '否'
+          })
+        }
+        else if(e.currentTarget.dataset.value=='1')
+        {
+          this.setData({
+            edit_tmp_value: '是',
+            edit_tmp_value: '是'
+          })
+        }
       }
     }
 
