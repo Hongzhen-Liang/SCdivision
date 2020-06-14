@@ -159,3 +159,7 @@
   color: white;
   font-size: 0.9rem;
 }
+
+.up{
+  margin-top: -2rem;
+}

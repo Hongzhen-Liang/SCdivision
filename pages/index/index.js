@@ -63,6 +63,7 @@ Page({
       'default': '无权限！'
     },
     isActuallyAdmin: app.globalData.isActuallyAdmin, //每次刷新都校验全局数据
+    isAdminNow:false,
     isEmployee: false,
     noAuthority: false,
     requestAuthority: false,
@@ -172,6 +173,7 @@ Page({
                         app.globalData.isActuallyAdmin = true;
                         that.setData({
                           isActuallyAdmin: true,
+                          isAdminNow:true,
                         })
                       }
                       //'depotManager': '仅允许出库入库',
@@ -374,27 +376,6 @@ Page({
     console.log(e.currentTarget.id);
     var cpos = e.currentTarget.id;
     var that = this;
-    // //以下是更改权限的部分,暂时没必要更改服务器上的权限，否则到时候改回来很烦
-    // wx.request({
-    //   url: 'http://120.78.209.24/index',
-    //   method : "PSOT",
-    //   header: {
-    //     'content-type': 'application/x-www-form-urlencoded',
-    //     'chartset': 'utf-8'
-    //   },
-    //   data:{
-    //     wxId: wx.getStorageSync('userId').toString(),
-    //     changeToPosition: cpos
-    //   },
-    //   success(res){
-    //     app.globalData.pos = cpos;
-    //     that.setData({
-    //       imageUri: '../../images/touxiang/' + cpos + '.png',
-    //       motto: '权限说明：' + this.data.explanation[cpos],
-    //     })
-    //   }
-    // })
-    //后端测试时请删掉！！！
     this.setData({
       imageUri: '../../images/touxiang/' + cpos + '.png',
       motto: '权限说明：' + this.data.explanation[cpos],
@@ -410,6 +391,7 @@ Page({
       that.setData({
         noAuthority: false,
         isEmployee: false,
+        isAdminNow: true,
       })
     }
     //'depotManager': '仅允许出库入库',
@@ -426,12 +408,14 @@ Page({
       })
       that.setData({
         isEmployee: true,
-        noAuthority: false
+        noAuthority: false,
+        isAdminNow:false
       })
     } else {
       that.setData({
         isEmployee: false,
-        noAuthority: true
+        noAuthority: true,
+        isAdminNow:false
       });
       wx.hideTabBar({
         aniamtion: true,

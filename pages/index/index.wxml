@@ -39,12 +39,15 @@
       <text class="user-motto">{{motto}}</text>
     </view>
     <view>
-      <text>当前经纬度:{{longitude}},{{latitude}}</text>
+      <text>当前经度:{{longitude}}</text>
+    </view>
+    <view>
+      <text>当前纬度:{{latitude}}</text>
     </view>
   </view>
   <view>
     <!-- 当审批队列里有待审批的权限申请时要加‘ #13227a ’色的标记 -->
-    <view wx:if="{{isActuallyAdmin}}">
+    <view wx:if="{{isAdminNow}}" class="up">
       <button bindtap="navigateToAuthorityPage" class="authorityBtn">权限审批</button>
       <button bindtap="navigateToEmployeeManagePage" class="authorityBtn">员工管理</button>
     </view>
